@@ -1,0 +1,12 @@
+<resources>
+  <string name="app_name">AnalyticsMobile | ARSARI</string>
+  <string name="intro_paragraph">Playground to explore analytics implementation on an Android Mobile App using Firebase SDK and Google Analytics 4 (GA4) mobile data stream.</string>
+  <string name="login_btn">Sign In</string>
+  <string name="logout_btn">Sign Out</string>
+  <string name="phone_btn">Phone</string>
+  <string name="email_btn">Email</string>
+  <string name="purchase_btn">Purchase</string>
+  <string name="stream_id">GA4->[4412335917]</string>
+  <string name="gtm_id">GTM->[xxx]</string>
+  <string name="code_by">Code with &#x2764; by ARSARI</string>
+</resources>

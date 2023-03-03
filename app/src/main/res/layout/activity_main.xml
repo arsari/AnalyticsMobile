@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  tools:context=".MainActivity">
+
+  <TextView
+    android:id="@+id/IntroTextView"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="16dp"
+    android:layout_marginTop="16dp"
+    android:layout_marginEnd="16dp"
+    android:text="@string/intro_paragraph"
+    android:textSize="14sp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+  <LinearLayout
+    android:id="@+id/buttonsLinearLayout"
+    android:layout_width="wrap_content"
+    android:layout_height="0dp"
+    android:layout_marginStart="16dp"
+    android:layout_marginTop="16dp"
+    android:layout_marginBottom="16dp"
+    android:orientation="vertical"
+    app:layout_constraintBottom_toTopOf="@+id/footerTableRow"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/IntroTextView">
+
+    <Button
+      android:id="@+id/loginButton"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:text="@string/login_btn" />
+
+    <Button
+      android:id="@+id/emailButton"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:layout_marginTop="8dp"
+      android:text="@string/email_btn" />
+
+    <Button
+      android:id="@+id/phoneButton"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:layout_marginTop="8dp"
+      android:text="@string/phone_btn" />
+
+    <Button
+      android:id="@+id/purchaseButton"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:layout_marginTop="8dp"
+      android:text="@string/purchase_btn" />
+
+    <Button
+      android:id="@+id/logoutButton"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:layout_marginTop="8dp"
+      android:text="@string/logout_btn" />
+  </LinearLayout>
+
+  <TextView
+    android:id="@+id/dataLayerTextView"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:layout_marginStart="16dp"
+    android:layout_marginTop="16dp"
+    android:layout_marginEnd="16dp"
+    android:layout_marginBottom="16dp"
+    android:background="#F8EE99"
+    android:paddingStart="5dp"
+    android:paddingTop="5dp"
+    android:paddingEnd="5dp"
+    android:paddingBottom="5dp"
+    android:textColor="@color/black"
+    android:textSize="12sp"
+    app:layout_constraintBottom_toTopOf="@+id/footerTableRow"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.0"
+    app:layout_constraintStart_toEndOf="@+id/buttonsLinearLayout"
+    app:layout_constraintTop_toBottomOf="@+id/IntroTextView"
+    app:layout_constraintVertical_bias="0.0" />
+
+  <TableRow
+    android:id="@+id/footerTableRow"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/purple_500"
+    android:gravity="center_horizontal"
+    android:padding="5dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    tools:layout_editor_absoluteX="0dp">
+
+    <TextView
+      android:id="@+id/ga4TextView"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_horizontal"
+      android:text="@string/stream_id"
+      android:textColor="@color/white"
+      android:textSize="12sp" />
+
+    <TextView
+      android:id="@+id/gtmTextView"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:paddingStart="45dp"
+      android:paddingEnd="45dp"
+      android:text="@string/gtm_id"
+      android:textColor="@color/white"
+      android:textSize="12sp" />
+
+    <TextView
+      android:id="@+id/authorTextView"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_horizontal"
+      android:text="@string/code_by"
+      android:textColor="@color/white"
+      android:textSize="12sp" />
+  </TableRow>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

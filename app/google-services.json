@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "977808049872",
+    "project_id": "analyticsmobile-b836a",
+    "storage_bucket": "analyticsmobile-b836a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:977808049872:android:5efb230cfad48ec5ec00d5",
+        "android_client_info": {
+          "package_name": "com.arsari.analyticsmobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "977808049872-e8j5odfmg9kl3hq9e9a4t0inik960dae.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAiCwJDqTlJO7gBP9EdwrP5ZGeqtjYnHwg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "977808049872-e8j5odfmg9kl3hq9e9a4t0inik960dae.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
