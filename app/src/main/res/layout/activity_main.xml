@@ -2,96 +2,177 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/ScreenContainer"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   tools:context=".MainActivity">
 
+  <ImageView
+    android:id="@+id/badgeImageView"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="16dp"
+    android:layout_marginTop="8dp"
+    android:clickable="true"
+    android:contentDescription="@string/shieldio"
+    android:focusable="true"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
   <TextView
-    android:id="@+id/IntroTextView"
+    android:id="@+id/introTextView"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
     android:layout_marginStart="16dp"
-    android:layout_marginTop="16dp"
+    android:layout_marginTop="8dp"
     android:layout_marginEnd="16dp"
+    android:clickable="true"
+    android:contentDescription="@string/intro_desc"
     android:text="@string/intro_paragraph"
     android:textSize="14sp"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent" />
+    app:layout_constraintTop_toBottomOf="@+id/badgeImageView"
+    android:focusable="true" />
 
   <LinearLayout
-    android:id="@+id/buttonsLinearLayout"
+    android:id="@+id/buttonsLinearLayout1"
     android:layout_width="wrap_content"
-    android:layout_height="0dp"
+    android:layout_height="wrap_content"
     android:layout_marginStart="16dp"
-    android:layout_marginTop="16dp"
-    android:layout_marginBottom="16dp"
-    android:orientation="vertical"
-    app:layout_constraintBottom_toTopOf="@+id/footerTableRow"
+    android:layout_marginTop="8dp"
+    android:layout_marginEnd="16dp"
+    android:orientation="horizontal"
+    app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/IntroTextView">
+    app:layout_constraintTop_toBottomOf="@+id/introTextView">
 
     <Button
       android:id="@+id/loginButton"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
+      android:layout_width="wrap_content"
+      android:layout_height="match_parent"
       android:layout_gravity="center"
-      android:text="@string/login_btn" />
-
-    <Button
-      android:id="@+id/emailButton"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_gravity="center"
-      android:layout_marginTop="8dp"
-      android:text="@string/email_btn" />
-
-    <Button
-      android:id="@+id/phoneButton"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_gravity="center"
-      android:layout_marginTop="8dp"
-      android:text="@string/phone_btn" />
+      android:layout_marginStart="2dp"
+      android:layout_marginEnd="2dp"
+      android:text="@string/login_btn"
+      android:textColor="@color/white"
+      android:textSize="12sp"
+      app:cornerRadius="50dp" />
 
     <Button
       android:id="@+id/purchaseButton"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
+      android:layout_width="wrap_content"
+      android:layout_height="match_parent"
       android:layout_gravity="center"
-      android:layout_marginTop="8dp"
-      android:text="@string/purchase_btn" />
+      android:layout_marginStart="2dp"
+      android:layout_marginEnd="2dp"
+      android:text="@string/purchase_btn"
+      android:textColor="@color/white"
+      android:textSize="12sp"
+      app:cornerRadius="50dp" />
 
     <Button
       android:id="@+id/logoutButton"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
+      android:layout_width="wrap_content"
+      android:layout_height="match_parent"
       android:layout_gravity="center"
-      android:layout_marginTop="8dp"
-      android:text="@string/logout_btn" />
+      android:layout_marginStart="2dp"
+      android:layout_marginEnd="2dp"
+      android:text="@string/logout_btn"
+      android:textColor="@color/white"
+      android:textSize="12sp"
+      app:cornerRadius="50dp" />
+
+  </LinearLayout>
+
+  <LinearLayout
+    android:id="@+id/buttonsLinearLayout2"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp"
+    android:orientation="horizontal"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/buttonsLinearLayout1">
+
+    <Button
+      android:id="@+id/phoneButton"
+      android:layout_width="wrap_content"
+      android:layout_height="match_parent"
+      android:layout_gravity="center"
+      android:layout_marginStart="2dp"
+      android:layout_marginEnd="2dp"
+      android:text="@string/phone_btn"
+      android:textColor="@color/white"
+      android:textSize="12sp"
+      app:cornerRadius="50dp" />
+
+    <Button
+      android:id="@+id/emailButton"
+      android:layout_width="wrap_content"
+      android:layout_height="match_parent"
+      android:layout_gravity="center"
+      android:layout_marginStart="2dp"
+      android:layout_marginEnd="2dp"
+      android:text="@string/email_btn"
+      android:textColor="@color/white"
+      android:textSize="12sp"
+      app:cornerRadius="50dp" />
+
+    <Button
+      android:id="@+id/searchButton"
+      android:layout_width="wrap_content"
+      android:layout_height="match_parent"
+      android:layout_gravity="center"
+      android:layout_marginStart="2dp"
+      android:layout_marginEnd="2dp"
+      android:text="@string/search_btn"
+      android:textColor="@color/white"
+      android:textSize="12sp"
+      app:cornerRadius="50dp" />
+
   </LinearLayout>
 
   <TextView
-    android:id="@+id/dataLayerTextView"
+    android:id="@+id/displayJSONTabTextView"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="16dp"
+    android:layout_marginTop="16dp"
+    android:background="@drawable/border_tab_purple"
+    android:gravity="center"
+    android:paddingStart="15dp"
+    android:paddingTop="2dp"
+    android:paddingEnd="15dp"
+    android:paddingBottom="2dp"
+    android:text="@string/tab_label"
+    android:textColor="@color/white"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/buttonsLinearLayout2" />
+
+  <TextView
+    android:id="@+id/displayJSONTextView"
     android:layout_width="0dp"
     android:layout_height="0dp"
     android:layout_marginStart="16dp"
-    android:layout_marginTop="16dp"
     android:layout_marginEnd="16dp"
     android:layout_marginBottom="16dp"
-    android:background="#F8EE99"
-    android:paddingStart="5dp"
-    android:paddingTop="5dp"
-    android:paddingEnd="5dp"
-    android:paddingBottom="5dp"
+    android:background="@drawable/border_datadisplay"
+    android:fontFamily="monospace"
+    android:hint="@string/display_label"
+    android:paddingStart="8dp"
+    android:paddingTop="8dp"
+    android:paddingEnd="8dp"
+    android:paddingBottom="10dp"
+    android:scrollbars="vertical"
     android:textColor="@color/black"
-    android:textSize="12sp"
+    android:textIsSelectable="true"
+    android:textSize="11sp"
     app:layout_constraintBottom_toTopOf="@+id/footerTableRow"
     app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHorizontal_bias="0.0"
-    app:layout_constraintStart_toEndOf="@+id/buttonsLinearLayout"
-    app:layout_constraintTop_toBottomOf="@+id/IntroTextView"
-    app:layout_constraintVertical_bias="0.0" />
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/displayJSONTabTextView" />
 
   <TableRow
     android:id="@+id/footerTableRow"
@@ -108,7 +189,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_gravity="center_horizontal"
-      android:text="@string/stream_id"
+      android:text="@string/ga4_stream_id"
       android:textColor="@color/white"
       android:textSize="12sp" />
 
@@ -116,8 +197,9 @@
       android:id="@+id/gtmTextView"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:paddingStart="45dp"
-      android:paddingEnd="45dp"
+      android:layout_gravity="center_horizontal"
+      android:paddingStart="15dp"
+      android:paddingEnd="15dp"
       android:text="@string/gtm_id"
       android:textColor="@color/white"
       android:textSize="12sp" />
@@ -127,6 +209,8 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_gravity="center_horizontal"
+      android:clickable="true"
+      android:focusable="true"
       android:text="@string/code_by"
       android:textColor="@color/white"
       android:textSize="12sp" />

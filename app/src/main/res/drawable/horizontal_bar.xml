@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 10(gap) 10(first) 10(gap) 10(second) 10(gap) 10(third) 10(gap) -->
+    <item
+        android:left="0dp"
+        android:right="0dp">
+        <shape android:shape="rectangle">
+            <size
+                android:width="100dp"
+                android:height="10dp"/>
+            <solid android:color="@color/white" />
+        </shape>
+    </item>
+</layer-list>
