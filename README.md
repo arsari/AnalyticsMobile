@@ -8,16 +8,19 @@
 
 <!-- Start Document Outline -->
 
-* [Introduction](#introduction)
-* [Fundamentals: Setup Firebase SDK and Analytics SDK](#fundamentals-setup-firebase-sdk-and-analytics-sdk)
-	* [Setup GTM](#setup-gtm)
-* [Tagging Implementation](#tagging-implementation)
-	* [Screen View Event](#screen-view-event)
-	* [General Events](#general-events)
-	* [Purchase Event](#purchase-event)
-	* [Error Events](#error-events)
-	* [Video Events](#video-events)
-* [Reference Documentation](#reference-documentation)
+- [AnalyticsMobile](#analyticsmobile)
+  - [Mobile Analytics Implementation Playground](#mobile-analytics-implementation-playground)
+    - [Table of Contents](#table-of-contents)
+    - [Introduction](#introduction)
+    - [Fundamentals: Setup Firebase SDK and Analytics SDK](#fundamentals-setup-firebase-sdk-and-analytics-sdk)
+      - [Setup GTM](#setup-gtm)
+    - [Tagging Implementation](#tagging-implementation)
+      - [Screen View Event](#screen-view-event)
+      - [General Events](#general-events)
+      - [Purchase Event](#purchase-event)
+      - [Error Events](#error-events)
+      - [Video Events](#video-events)
+  - [Reference Documentation](#reference-documentation)
 
 <!-- End Document Outline -->
 
@@ -37,18 +40,18 @@ A self playground of analytic implementation on an Android Mobile App using Fire
 This implementation is based on JAVA programming language with the following Project Structure:
 
 - Project
-    - Android Gradle Plugin Version: 7.4.0
-    - Gradle Version: 7.5
+  - Android Gradle Plugin Version: 7.4.0
+  - Gradle Version: 7.5
 - Modules
-    - Properties
-        - Compile SDK Version: 33
-        - Source Compatibility: $JavaVersion.VERSION_11
-        - Target Compatibility: $JavaVersion.VERSION_11
-    - Default Config
-        - Target SDK Version: 33
-        - Min SDK Version: 24
+  - Properties
+    - Compile SDK Version: 33
+    - Source Compatibility: $JavaVersion.VERSION_11
+    - Target Compatibility: $JavaVersion.VERSION_11
+  - Default Config
+    - Target SDK Version: 33
+    - Min SDK Version: 24
 - Built Variants
-    - Minify Enabled: false
+  - Minify Enabled: false
 
 ### Fundamentals: Setup Firebase SDK and Analytics SDK
 
@@ -63,7 +66,7 @@ buildscript {
     google()  // Google's Maven repository
     mavenCentral()  // Maven Central repository
   }
-  
+
   dependencies {
     // Add the dependency for the Google services Gradle plugin
     classpath 'com.google.gms:google-services:4.3.14'
@@ -78,14 +81,14 @@ buildscript {
 ```java
 plugins {
     ...
-    
+
     // Firebase: Add the Google services Gradle plugin
     id 'com.google.gms.google-services'
 }
 
 dependencies {
     ...
-    
+
     // Firebase: Import the Firebase BoM
     implementation platform('com.google.firebase:firebase-bom:31.2.3')
     // Firebase Analytics (Java)
@@ -128,8 +131,8 @@ After you have created a FirebaseAnalytics instance, you can begin to log events
 
 Firebase SDK have some events and parameters out-of-box which is highly recommended to use before creating custom events and parameters. The out-of-box events and parameters will be prefixed with `FirebaseAnalytics.Event.NAME_OF_EVENT` and `FirebaseAnalytics.Param.NAME_OF_PARAMETER`. Send events along with their prescribed parameters, to ensure maximum available detail in our reports and to benefit from future features and integration's as they become available. We can find implementation details for recommended event types in the following locations:
 
-* Recommended events: see the [com.google.firebase.analytics.FirebaseAnalytics.Event](https://firebase.google.com/docs/reference/android/com/google/firebase/analytics/FirebaseAnalytics.Event) class reference.
-* Prescribed parameters: see the [com.google.firebase.analytics.FirebaseAnalytics.Param](https://firebase.google.com/docs/reference/android/com/google/firebase/analytics/FirebaseAnalytics.Param) reference.
+- Recommended events: see the [com.google.firebase.analytics.FirebaseAnalytics.Event](https://firebase.google.com/docs/reference/android/com/google/firebase/analytics/FirebaseAnalytics.Event) class reference.
+- Prescribed parameters: see the [com.google.firebase.analytics.FirebaseAnalytics.Param](https://firebase.google.com/docs/reference/android/com/google/firebase/analytics/FirebaseAnalytics.Param) reference.
 
 User ID and others user properties are set using `FirebaseAnalytics.setUserId(USER_ID)` and `FirebaseAnalytics.setUserProperty(EVENT_NAME, STRING_VALUE)`. For more information see [Set User Properties](https://firebase.google.com/docs/analytics/user-properties?platform=android) and [Set User ID](https://firebase.google.com/docs/analytics/userid#android).
 
@@ -144,42 +147,42 @@ or
 mFirebaseAnalytics.setUserProperty("logged_in", "false");
 ```
 
-To facilitate identified user actions by their UserID, a `custom_user_id` custom dimension **event**, not *user*, is implemented as a global parameter in GA4 which allow to use it in the Explorer reports (`user_id` is a reserved dimension that is only available for the GA4 User Explorer report). The `custom_user_id` was set as *event* in GA4 because if it is set as a user property we need to fire it using `mFirebaseAnalytics.setUserProperty()` method and could not be append to each fired event.
+To facilitate identified user actions by their UserID, a `custom_user_id` custom dimension **event**, not _user_, is implemented as a global parameter in GA4 which allow to use it in the Explorer reports (`user_id` is a reserved dimension that is only available for the GA4 User Explorer report). The `custom_user_id` was set as _event_ in GA4 because if it is set as a user property we need to fire it using `mFirebaseAnalytics.setUserProperty()` method and could not be append to each fired event.
 
 The tagging implementation for events log consider the followings user actions (ui interactions), system events (content tools), and errors based on resource `Button` click and a `setOnClickListener()` method to fire the corresponding **events**:
 
-| User Action | Event                | Type             | Parameters                                          |                                    
-|----------------|----------------------|------------------|-----------------------------------------------------|
-| Screen View    | screen_view          | content tool     | screen_name<br>screen_class<br>app_name<br>app_desc<br>app_author<br>author_email<br>content_group<br>content_type<br>language_code
-| Sign In        | login                | user interaction | method                                                                                    |
-| Sign In        | login_error          | content tool     | error_message<br>toast_impression                         |
-| Email          | generate_lead        | user interaction | contact_method<br>currency<br>value                       |
-| Outbound Link  | outbound_link        | user interaction | link_id<br>link_url<br>link_text<br>outbound              |
-| Phone          | generate_lead        | user interaction | contact_method<br>currency<br>value                       |
-| Purchase       | purchase             | user interaction | transaction_id<br>value<br>tax<br>shipping<br>items       |
-| Search         | search_dialog_opened | user interaction |                                                                                           |
-| - _ok_         | search               | user interaction | search_term                                                                               |
-| - _cancel_     | search_dialog_closed | user interaction |                                                                                           |
-| Search         | search_error         | content tool     | error_message<br>toast_impression                         |
-| Video          | video_start          | user interaction | video_duraction<br>video_curent__time<br>video_percent<br>video_status<br>video_provider<br>video_title<br>video_url |
-| Video          | video_progress       | content tool     | video_duraction<br>video_curent__time<br>video_percent<br>video_status<br>video_provider<br>video_title<br>video_url |
-| Video Playing  | video_stop           | user interaction | video_duraction<br>video_curent__time<br>video_percent<br>video_status<br>video_provider<br>video_title<br>video_url |
-| Sign Out       | logout               | user interaction |                                                                                           |
-| Sign Out       | logout_error         | content tool     | error_message<br>toast_impression                         |
-
+| User Action   | Event                | Type             | Parameters                                                                                                                          | GA4 Scope                                                                     | GA4 Definitions                                                                                                        |
+| ------------- | -------------------- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| Screen View   | screen_view          | content tool     | screen_name<br>screen_class<br>app_name<br>app_desc<br>app_author<br>author_email<br>content_group<br>content_type<br>language_code | Event<br>Event<br>Event<br>Event<br>Event<br>Event<br>Event<br>Event<br>Event | Predifined<br>Predifined<br>Dimension<br>Dimension<br>Dimension<br>Dimension<br>Predifined<br>Predifined<br>Predifined |
+| Sign In       | login                | user interaction | method                                                                                                                              | Event                                                                         | Predifined                                                                                                             |
+| Sign In       | login_error          | content tool     | error_message<br>toast_impression                                                                                                   | Event<br>Event                                                                | Dimension<br>Dimension                                                                                                 |
+| Email         | generate_lead        | user interaction | contact_method<br>currency<br>value                                                                                                 | Event<br>Event<br>Event                                                       | Dimension<br>Predifined<br>Predifined                                                                                  |
+| Outbound Link | outbound_link        | user interaction | link_id<br>link_url<br>link_text<br>outbound                                                                                        | Event<br>Event<br>Event<br>Event                                              | Predifined<br>Predifined<br>Predifined<br>Predifined                                                                   |
+| Phone         | generate_lead        | user interaction | contact_method<br>currency<br>value                                                                                                 | Event<br>Event<br>Event                                                       | Dimension<br>Predifined<br>Predifined                                                                                  |
+| Purchase      | purchase             | user interaction | transaction_id<br>value<br>tax<br>shipping<br>items                                                                                 | Event<br>Event<br>Event<br>Event<br>Event                                     | Predifined<br>Predifined<br>Predifined<br>Predifined<br>Predifined                                                     |
+| Search        | search_dialog_opened | user interaction |                                                                                                                                     |                                                                               |                                                                                                                        |
+| - _ok_        | search               | user interaction | search_term                                                                                                                         | Event                                                                         | Predifined                                                                                                             |
+| - _cancel_    | search_dialog_closed | user interaction |                                                                                                                                     |                                                                               |                                                                                                                        |
+| Search        | search_error         | content tool     | error_message<br>toast_impression                                                                                                   | Event<br>Event                                                                | Dimension<br>Dimension                                                                                                 |
+| Video         | video_start          | user interaction | video_duraction<br>video_curent\_\_time<br>video_percent<br>video_status<br>video_provider<br>video_title<br>video_url              | Event<br>Event<br>Event<br>Event<br>Event<br>Event<br>Event                   | Metric<br>Metric<br>Metric<br>Dimension<br>Predifined<br>Predifined<br>Predifined                                      |
+| Video         | video_progress       | content tool     | video_duraction<br>video_curent\_\_time<br>video_percent<br>video_status<br>video_provider<br>video_title<br>video_url              | Event<br>Event<br>Event<br>Event<br>Event<br>Event<br>Event                   | Metric<br>Metric<br>Metric<br>Dimension<br>Predifined<br>Predifined<br>Predifined                                      |
+| Video         | video_complete       | content tool     | video_duraction<br>video_curent\_\_time<br>video_percent<br>video_status<br>video_provider<br>video_title<br>video_url              | Event<br>Event<br>Event<br>Event<br>Event<br>Event<br>Event                   | Metric<br>Metric<br>Metric<br>Dimension<br>Predifined<br>Predifined<br>Predifined                                      |
+| Video Playing | video_stop           | user interaction | video_duraction<br>video_curent\_\_time<br>video_percent<br>video_status<br>video_provider<br>video_title<br>video_url              | Event<br>Event<br>Event<br>Event<br>Event<br>Event<br>Event                   | Metric<br>Metric<br>Metric<br>Dimension<br>Predifined<br>Predifined<br>Predifined                                      |
+| Sign Out      | logout               | user interaction |                                                                                                                                     |                                                                               |                                                                                                                        |
+| Sign Out      | logout_error         | content tool     | error_message<br>toast_impression                                                                                                   | Event<br>Event                                                                | Dimension<br>Dimension                                                                                                 |
 
 Following global parameters apply to to the majority of the above **events**:
 
-| Global Parameters              |
-|--------------------------------|
-| event_type                     |
-| button_text                    |
-| resource_id                    |
-| event_timestamp (milliseconds) |
-| custom_timestamp (ISO 8601)    |
-| custom_user_id                 |
-| logged_in (user property)      |
-| user_id (user property)        |
+| Global Parameters              | GA4 Scope | GA4 Definitions |
+| ------------------------------ | --------- | --------------- |
+| event_type                     | Event     | Dimension       |
+| button_text                    | Event     | Dimension       |
+| resource_id                    | Event     | Dimension       |
+| event_timestamp (milliseconds) | Event     | Dimension       |
+| custom_timestamp (ISO 8601)    | Event     | Dimension       |
+| custom_user_id                 | Event     | Dimension       |
+| logged_in (user property)      | User      | Dimension       |
+| user_id (user property)        | User      | Predifined      |
 
 The events `dataLayer` array-object or `Bundle` is based on [Google Analytics for Firebase](https://firebase.google.com/docs/analytics) events recommendations.
 
@@ -207,7 +210,7 @@ This _screen view_ event fires automatically when the mobile app is initiated co
     params.putString("content_group", "Implementation");
     params.putString("content_type", "Playground");
     params.putString("language_code", "en-US");
-				
+
     // Global parameters
     params.putString("event_type", et);
     params.putString("button_text", click);
@@ -235,7 +238,7 @@ The implemented _purchase event_ `Bundle` is composed of:
     item1.putLong(FirebaseAnalytics.Param.QUANTITY, qty);
     item1.putDouble(FirebaseAnalytics.Param.PRICE, price);
     item1.putLong(FirebaseAnalytics.Param.INDEX, 1);
-    
+
     Bundle item2 = new Bundle();
     item2.putString(FirebaseAnalytics.Param.ITEM_ID, ("SKU_" + rand.nextInt(1000) + 1));
     item2.putString(FirebaseAnalytics.Param.ITEM_NAME, "boots");
@@ -245,7 +248,7 @@ The implemented _purchase event_ `Bundle` is composed of:
     item2.putLong(FirebaseAnalytics.Param.QUANTITY, qty);
     item2.putDouble(FirebaseAnalytics.Param.PRICE, price);
     item2.putLong(FirebaseAnalytics.Param.INDEX, 2);
-    
+
     // Purchase event parameters
     Bundle params = new Bundle();
     params.putString(FirebaseAnalytics.Param.TRANSACTION_ID, transID);
@@ -256,7 +259,7 @@ The implemented _purchase event_ `Bundle` is composed of:
     params.putDouble(FirebaseAnalytics.Param.SHIPPING, shipping);
     params.putString(FirebaseAnalytics.Param.COUPON, "SUMMER_FUN");
     params.putParcelableArray(FirebaseAnalytics.Param.ITEMS, new Parcelable[]{item1, item2});
-    
+
     // Global parameters
     params.putString("event_type", et);
     params.putString("button_text", click);
@@ -275,7 +278,7 @@ The implemented _error events_ `Bundle` is composed of:
     Bundle params = new Bundle();
     params.putString("error_message", message);
     params.putBoolean("toast_impression", true);
-    
+
     // Global parameters
     params.putString("event_type", et);
     params.putString("button_text", click);
@@ -297,7 +300,7 @@ The implemented _error events_ `Bundle` is composed of:
     params.putString("video_provider", vp);
     params.putString("video_title", vt);
     params.putString("video_url", vu);
-    
+
     // Global parameters
     params.putString("event_type", et);
     params.putString("button_text", click);
@@ -310,9 +313,9 @@ The implemented _error events_ `Bundle` is composed of:
 
 ## Reference Documentation
 
-* [Firebase Console](https://console.firebase.google.com/)
-* [Firebase Analytics Developer Documentation](https://firebase.google.com/docs/analytics/get-started?platform=android)
-* [Google Tag Manager For Android (Firebase) Documentation](https://developers.google.com/tag-platform/tag-manager/android/v5)
+- [Firebase Console](https://console.firebase.google.com/)
+- [Firebase Analytics Developer Documentation](https://firebase.google.com/docs/analytics/get-started?platform=android)
+- [Google Tag Manager For Android (Firebase) Documentation](https://developers.google.com/tag-platform/tag-manager/android/v5)
 
 =====
 
