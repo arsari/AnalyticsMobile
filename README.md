@@ -1,19 +1,22 @@
 # AnalyticsMobile
 
-## Mobile Analytic Implementation Playground
+## Mobile Analytics Implementation Playground
+
+[![AnalyticsWeb](https://img.shields.io/badge/counterpart_repo-web_analytics-red.svg?style=for-the-badge&logo=github)](https://www.github.com/arsari/AnalyticsWeb "Click Here!")&nbsp;&nbsp;&nbsp;[![Generic badge](https://img.shields.io/badge/license-MIT-green.svg?style=for-the-badge&logo=f-secure)](LICENSE)
 
 ### Table of Contents
 
 <!-- Start Document Outline -->
 
 * [Introduction](#introduction)
-* [Fundamentals: Setup Firebase SDK Analytics](#fundamentals-setup-firebase-sdk-analytics)
+* [Fundamentals: Setup Firebase SDK and Analytics SDK](#fundamentals-setup-firebase-sdk-and-analytics-sdk)
 	* [Setup GTM](#setup-gtm)
 * [Tagging Implementation](#tagging-implementation)
 	* [Screen View Event](#screen-view-event)
 	* [General Events](#general-events)
 	* [Purchase Event](#purchase-event)
 	* [Error Events](#error-events)
+	* [Video Events](#video-events)
 * [Reference Documentation](#reference-documentation)
 
 <!-- End Document Outline -->
@@ -26,7 +29,10 @@ A self playground of analytic implementation on an Android Mobile App using Fire
 - Setup of GTM in the Android Mobile App to track different 3rd party tags
 - dataLayer objects firing and analyzing user interactions in GA4 ([Read more about Google Analytics for Firebase](https://firebase.google.com/docs/analytics))
 
-![Playground Screenshot](230307-playground_screenshot.png)
+<div style="text-align: center;">
+    <img src="230307-playground_screenshot.png" width="500px" title="AnalyticsMobile App Screenshot" />
+    <p><em>Figure 1 - AnalyticsMobile App Screenshot</em></p>
+</div>
 
 This implementation is based on JAVA programming language with the following Project Structure:
 
@@ -132,38 +138,48 @@ On our implementation, we create a `userAuthenticated(BOOLEAN_VALUE)` method whi
 ```java
 mFirebaseAnalytics.setUserId(ui);
 mFirebaseAnalytics.setUserProperty("logged_in", "true");
+
+or
+
+mFirebaseAnalytics.setUserProperty("logged_in", "false");
 ```
 
-To facilitate identified user actions by their UserID, a `custom_user_id` custom dimension is implemented as a global user event in GA4 which allow to use it in the Explorer reports (user_id is a reserved dimension that is only available for the GA4 User Explorer report).
+To facilitate identified user actions by their UserID, a `custom_user_id` custom dimension **event**, not *user*, is implemented as a global parameter in GA4 which allow to use it in the Explorer reports (`user_id` is a reserved dimension that is only available for the GA4 User Explorer report). The `custom_user_id` was set as *event* in GA4 because if it is set as a user property we need to fire it using `mFirebaseAnalytics.setUserProperty()` method and could not be append to each fired event.
 
 The tagging implementation for events log consider the followings user actions (ui interactions), system events (content tools), and errors based on resource `Button` click and a `setOnClickListener()` method to fire the corresponding **events**:
 
 | User Action | Event                | Type             | Parameters                                          |                                    
 |----------------|----------------------|------------------|-----------------------------------------------------|
-| Screen View    | screen_view          | content tool     | screen_name<br>screen_class<br>app_author<br>author_email |
+| Screen View    | screen_view          | content tool     | screen_name<br>screen_class<br>app_name<br>app_desc<br>app_author<br>author_email<br>content_group<br>content_type<br>language_code
 | Sign In        | login                | user interaction | method                                                                                    |
 | Sign In        | login_error          | content tool     | error_message<br>toast_impression                         |
 | Email          | generate_lead        | user interaction | contact_method<br>currency<br>value                       |
+| Outbound Link  | outbound_link        | user interaction | link_id<br>link_url<br>link_text<br>outbound              |
 | Phone          | generate_lead        | user interaction | contact_method<br>currency<br>value                       |
 | Purchase       | purchase             | user interaction | transaction_id<br>value<br>tax<br>shipping<br>items       |
 | Search         | search_dialog_opened | user interaction |                                                                                           |
 | - _ok_         | search               | user interaction | search_term                                                                               |
 | - _cancel_     | search_dialog_closed | user interaction |                                                                                           |
 | Search         | search_error         | content tool     | error_message<br>toast_impression                         |
+| Video          | video_start          | user interaction | video_duraction<br>video_curent__time<br>video_percent<br>video_status<br>video_provider<br>video_title<br>video_url |
+| Video          | video_progress       | content tool     | video_duraction<br>video_curent__time<br>video_percent<br>video_status<br>video_provider<br>video_title<br>video_url |
+| Video Playing  | video_stop           | user interaction | video_duraction<br>video_curent__time<br>video_percent<br>video_status<br>video_provider<br>video_title<br>video_url |
 | Sign Out       | logout               | user interaction |                                                                                           |
 | Sign Out       | logout_error         | content tool     | error_message<br>toast_impression                         |
-| Outbound Link  | outbound_link        | user interaction | link_id<br>link_url<br>link_text<br>outbound              |
+
 
 Following global parameters apply to to the majority of the above **events**:
 
 | Global Parameters              |
 |--------------------------------|
-| event_timestamp (milliseconds) |
-| custom_timestamp (ISO 8601)    |
+| event_type                     |
 | button_text                    |
 | resource_id                    |
-| event_type                     |
-| custom_user_id (user property) |
+| event_timestamp (milliseconds) |
+| custom_timestamp (ISO 8601)    |
+| custom_user_id                 |
+| logged_in (user property)      |
+| user_id (user property)        |
 
 The events `dataLayer` array-object or `Bundle` is based on [Google Analytics for Firebase](https://firebase.google.com/docs/analytics) events recommendations.
 
@@ -184,16 +200,21 @@ This _screen view_ event fires automatically when the mobile app is initiated co
     Bundle params = new Bundle();
     params.putString(FirebaseAnalytics.Param.SCREEN_NAME, screenName);
     params.putString(FirebaseAnalytics.Param.SCREEN_CLASS, "MainActivity");
+    params.putString("app_name", "AnalyticsMobile");
+    params.putString("app_desc", "Mobile Analytics Implementation Playground");
     params.putString("app_author", "Arturo Santiago-Rivera");
-	params.putString("author_email", "asantiago@arsari.com");
-    
+    params.putString("author_email", "asantiago@arsari.com");
+    params.putString("content_group", "Implementation");
+    params.putString("content_type", "Playground");
+    params.putString("language_code", "en-US");
+				
     // Global parameters
+    params.putString("event_type", et);
+    params.putString("button_text", click);
+    params.putString("resource_id", resourceId);
     params.putLong("event_timestamp", new Date().getTime()); // milliseconds
     params.putString("custom_timestamp", timeStamp()); // ISO 8061
-    params.putString("event_type", et);
-    params.putBoolean("logged_in", log);
-    params.putString("user_id", ui);
-    
+
     mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW, params);
 ```
 
@@ -226,6 +247,7 @@ The implemented _purchase event_ `Bundle` is composed of:
     item2.putLong(FirebaseAnalytics.Param.INDEX, 2);
     
     // Purchase event parameters
+    Bundle params = new Bundle();
     params.putString(FirebaseAnalytics.Param.TRANSACTION_ID, transID);
     params.putString(FirebaseAnalytics.Param.AFFILIATION, "My Great Store");
     params.putString(FirebaseAnalytics.Param.CURRENCY, cc);
@@ -236,13 +258,11 @@ The implemented _purchase event_ `Bundle` is composed of:
     params.putParcelableArray(FirebaseAnalytics.Param.ITEMS, new Parcelable[]{item1, item2});
     
     // Global parameters
+    params.putString("event_type", et);
     params.putString("button_text", click);
     params.putString("resource_id", resourceId);
     params.putLong("event_timestamp", new Date().getTime()); // milliseconds
     params.putString("custom_timestamp", timeStamp()); // ISO 8061
-    params.putString("event_type", et);
-    params.putBoolean("logged_in", logged);
-    params.putString("user_id", ui);
 
     mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.PURCHASE, params);
 ```
@@ -252,18 +272,39 @@ The implemented _purchase event_ `Bundle` is composed of:
 The implemented _error events_ `Bundle` is composed of:
 
 ```java
+    Bundle params = new Bundle();
     params.putString("error_message", message);
     params.putBoolean("toast_impression", true);
     
     // Global parameters
+    params.putString("event_type", et);
     params.putString("button_text", click);
     params.putString("resource_id", resourceId);
     params.putLong("event_timestamp", new Date().getTime()); // milliseconds
     params.putString("custom_timestamp", timeStamp()); // ISO 8061
-    params.putString("event_type", et);
-    params.putBoolean("logged_in", logged);
-    params.putString("user_id", ui);
+
+    mFirebaseAnalytics.logEvent(EVENT_NAME, params);
+```
+
+#### Video Events
+
+```java
+    Bundle params = new Bundle();
+    params.putString("video_duration", vd[0] + "sec");
+    params.putString("video_current_time", vct[0] + "sec");
+    params.putString("video_percent", milestone + "%");
+    params.putString("video_status", vs[0]);
+    params.putString("video_provider", vp);
+    params.putString("video_title", vt);
+    params.putString("video_url", vu);
     
+    // Global parameters
+    params.putString("event_type", et);
+    params.putString("button_text", click);
+    params.putString("resource_id", resourceId);
+    params.putLong("event_timestamp", new Date().getTime()); // milliseconds
+    params.putString("custom_timestamp", timeStamp()); // ISO 8061
+
     mFirebaseAnalytics.logEvent(EVENT_NAME, params);
 ```
 
@@ -275,4 +316,4 @@ The implemented _error events_ `Bundle` is composed of:
 
 =====
 
-Copyright 2023 | Arturo Santiago-Rivera | [MIT License](LICENSE)
+Copyright 2022-2023 | [Arturo Santiago-Rivera](mailto:asantiago@arsari.com) | [MIT License](LICENSE)
