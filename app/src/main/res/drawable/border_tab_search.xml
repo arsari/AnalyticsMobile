@@ -5,9 +5,9 @@
    android:topLeftRadius="10dp"
    android:topRightRadius="10dp" />
  <!-- This is the border color -->
- <stroke android:width="2dp" android:color="#ee6200" />
+ <stroke android:width="2dp" android:color="@color/purple_500" />
  <!--- This is the background color -->
- <solid android:color="#ee6200" />
+ <solid android:color="@color/purple_500" />
 </shape>
 
 

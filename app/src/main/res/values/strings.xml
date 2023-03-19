@@ -1,21 +1,26 @@
 <resources>
     <string name="app_name">AnalyticsMobile | ARSARI</string>
-  <string name="intro_paragraph">Playground to explore analytics implementation on an <b>Android Mobile App</b> using Firebase SDK and Google Analytics 4 (GA4) mobile data stream. <font color="red"><i>Click to clear the dataLayer display</i></font>.</string>
+  <string name="intro_paragraph">Playground to explore analytics implementation on an <b>Android Mobile App</b> using Firebase SDK and Google Analytics 4 (GA4) mobile data stream. <font color="red"><i>Click paragraph to clear the dataLayer display</i></font>.</string>
     <string name="login_btn">Sign In</string>
     <string name="logout_btn">Sign Out</string>
     <string name="phone_btn">Phone</string>
     <string name="email_btn">Email</string>
     <string name="purchase_btn">Purchase</string>
     <string name="search_btn">Search</string>
+    <string name="video_btn">Video</string>
     <string name="tab_label">dataLayer</string>
     <string name="ga4_stream_id">GA4->[4412335917]</string>
     <string name="code_by">Code with &#x2764; by ARSARI</string>
     <string name="search_dialog_title">Search for:</string>
-    <string name="search_input_placeholder">Enter Keyword</string>
-    <string name="shieldio">shield.io badge -> Github Repo Last Commit</string>
-    <string name="link_github">Go to Github Repo</string>
-    <string name="gtm_id">[GTM-XXXXXX]</string>
-  <string name="display_separator">|---------------------------[dataLayer &lt;%d>]-----|\n\n</string>
+    <string name="search_input_placeholder">Enter Keyword not PII</string>
+    <string name="github_badge">shields.io -> Github Repo Last Commit</string>
+    <string name="github">Go to Github Repo</string>
+    <string name="linkedin">Linkedin Profie</string>
+    <string name="gtm_id">[GTM-5S68ZCS]</string>
+    <string name="display_separator">|---------------------------[dataLayer &lt;%d>]-----|\n\n</string>
     <string name="intro_desc">Introduction Paragraph</string>
-    <string name="display_label">Display of dataLayer JSON object</string>
+    <string name="display_label">dataLayer JSON object display</string>
+    <string name="video_play">Video Playing</string>
+    <string name="ext_link">Outbound Link</string>
+    <string name="github_tag">shields.io -> Github Repo Tag Version</string>
 </resources>

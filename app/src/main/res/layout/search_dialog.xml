@@ -20,7 +20,7 @@
       android:id="@+id/dialogTitleTextView"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:background="@drawable/border_tab_purple"
+      android:background="@drawable/border_tab_search"
       android:gravity="center|center_horizontal"
       android:padding="5dp"
       android:text="@string/search_dialog_title"
@@ -37,7 +37,7 @@
         android:id="@+id/searchTextInputEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/border_purple"
+        android:background="@drawable/border_search"
         android:hint="@string/search_input_placeholder" />
 
     </com.google.android.material.textfield.TextInputLayout>

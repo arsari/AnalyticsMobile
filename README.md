@@ -1,32 +1,37 @@
 # AnalyticsMobile
 
-## Mobile Analytics Implementation Playground
+[![AnalyticsMobile Releases|Tags](https://img.shields.io/github/v/tag/arsari/AnalyticsMobile?color=blue&logo=github&sort=semver&style=for-the-badge)](https://github.com/arsari/AnalyticsWeb/tags "Go to AnalyticsMobile Releases|Tags")&nbsp;&nbsp;&nbsp;&nbsp;[![MIT License](https://img.shields.io/badge/license-MIT-green.svg?style=for-the-badge&logo=f-secure)](LICENSE "Click to see License")<br>[![AnalyticsWeb](https://img.shields.io/badge/counterpart_repo-web_analytics-orange.svg?style=for-the-badge&logo=github)](https://www.github.com/arsari/AnalyticsWeb "Click Here to Visit Repo!")
 
-[![AnalyticsWeb](https://img.shields.io/badge/counterpart_repo-web_analytics-red.svg?style=for-the-badge&logo=github)](https://www.github.com/arsari/AnalyticsWeb "Click Here!")&nbsp;&nbsp;&nbsp;[![Generic badge](https://img.shields.io/badge/license-MIT-green.svg?style=for-the-badge&logo=f-secure)](LICENSE)
+## Mobile Analytics Implementation Playground
 
 ### Table of Contents
 
 <!-- Start Document Outline -->
 
-- [AnalyticsMobile](#analyticsmobile)
-  - [Mobile Analytics Implementation Playground](#mobile-analytics-implementation-playground)
-    - [Table of Contents](#table-of-contents)
-    - [Introduction](#introduction)
-    - [Fundamentals: Setup Firebase SDK and Analytics SDK](#fundamentals-setup-firebase-sdk-and-analytics-sdk)
-      - [Setup GTM](#setup-gtm)
-    - [Tagging Implementation](#tagging-implementation)
-      - [Screen View Event](#screen-view-event)
-      - [General Events](#general-events)
-      - [Purchase Event](#purchase-event)
-      - [Error Events](#error-events)
-      - [Video Events](#video-events)
-  - [Reference Documentation](#reference-documentation)
+* [Introduction](#introduction)
+* [Fundamentals: Setup Firebase SDK and Analytics SDK](#fundamentals-setup-firebase-sdk-and-analytics-sdk)
+* [Tagging Implementation](#tagging-implementation)
+	* [Screen View Event](#screen-view-event)
+	* [General Events](#general-events)
+	* [Purchase Event](#purchase-event)
+	* [Error Events](#error-events)
+	* [Video Events](#video-events)
+* [GTM Setup](#gtm-setup)
+* [Reference Documentation](#reference-documentation)
 
 <!-- End Document Outline -->
 
 ### Introduction
 
-A self playground of analytic implementation on an Android Mobile App using Firebase SDK, GTM, and GA4 mobile data stream that allows to explore the implementation of:
+Google Analytics 4 (GA4) is a powerful analytics tool that enables to track user interactions and behaviors on our mobile app. Implementing GA4 on our mobile app requires a few steps:
+
+* Set up a GA4 property in the Google Analytics interface.
+* Install the Google Analytics for Firebase SDK in the mobile app.
+* Configure the app to use the Firebase SDK, including registering the app with Firebase.
+* Enable the GA4 property for our Firebase project.
+* Update our app's code to use the GA4 tracking code.
+
+This is self playground of analytic implementation on an Android Mobile App using Firebase SDK, GTM, and GA4 mobile data stream that allows to explore the implementation of:
 
 - Setup of Firebase SDK Analytics tracking in the Android Mobile App ([Add Firebase to your Android Project](https://firebase.google.com/docs/android/setup))
 - Setup of GTM in the Android Mobile App to track different 3rd party tags
@@ -121,10 +126,6 @@ private FirebaseAnalytics mFirebaseAnalytics
 mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 ```
 
-#### Setup GTM
-
-Initially was considered the use of GTM as part of our implementation but it is not recommended because the limitation it provided and the requirement of download from the container and upload into the App root directory every latest live version that is published on the container.
-
 ### Tagging Implementation
 
 After you have created a FirebaseAnalytics instance, you can begin to log events with the `.logEvent()` method. The event `dataLayer` array-object or `Bundle` is send to GA4 using the statement `FirebaseAnalytics.logEvent(EVENT_NAME, EVENT_PARAMS_BUNDLE)`.
@@ -151,23 +152,25 @@ To facilitate identified user actions by their UserID, a `custom_user_id` custom
 
 The tagging implementation for events log consider the followings user actions (ui interactions), system events (content tools), and errors based on resource `Button` click and a `setOnClickListener()` method to fire the corresponding **events**:
 
+> _NOTE! Events predefined in Firebase has been capitalized._
+
 | User Action   | Event                | Type             | Parameters                                                                                                                          | GA4 Scope                                                                     | GA4 Definitions                                                                                                        |
 | ------------- | -------------------- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
-| Screen View   | screen_view          | content tool     | screen_name<br>screen_class<br>app_name<br>app_desc<br>app_author<br>author_email<br>content_group<br>content_type<br>language_code | Event<br>Event<br>Event<br>Event<br>Event<br>Event<br>Event<br>Event<br>Event | Predifined<br>Predifined<br>Dimension<br>Dimension<br>Dimension<br>Dimension<br>Predifined<br>Predifined<br>Predifined |
+| Screen View   | screen_view          | content tool     | SCREEN_NAME<br>SCREEN_CLASS<br>app_name<br>app_desc<br>app_author<br>author_email<br>content_group<br>content_type<br>language_code | Event<br>Event<br>Event<br>Event<br>Event<br>Event<br>Event<br>Event<br>Event | Predifined<br>Predifined<br>Dimension<br>Dimension<br>Dimension<br>Dimension<br>Predifined<br>Predifined<br>Predifined |
 | Sign In       | login                | user interaction | method                                                                                                                              | Event                                                                         | Predifined                                                                                                             |
 | Sign In       | login_error          | content tool     | error_message<br>toast_impression                                                                                                   | Event<br>Event                                                                | Dimension<br>Dimension                                                                                                 |
-| Email         | generate_lead        | user interaction | contact_method<br>currency<br>value                                                                                                 | Event<br>Event<br>Event                                                       | Dimension<br>Predifined<br>Predifined                                                                                  |
+| Email         | generate_lead        | user interaction | contact_method<br>CURRENCY<br>VALUE                                                                                                 | Event<br>Event<br>Event                                                       | Dimension<br>Predifined<br>Predifined                                                                                  |
 | Outbound Link | outbound_link        | user interaction | link_id<br>link_url<br>link_text<br>outbound                                                                                        | Event<br>Event<br>Event<br>Event                                              | Predifined<br>Predifined<br>Predifined<br>Predifined                                                                   |
-| Phone         | generate_lead        | user interaction | contact_method<br>currency<br>value                                                                                                 | Event<br>Event<br>Event                                                       | Dimension<br>Predifined<br>Predifined                                                                                  |
-| Purchase      | purchase             | user interaction | transaction_id<br>value<br>tax<br>shipping<br>items                                                                                 | Event<br>Event<br>Event<br>Event<br>Event                                     | Predifined<br>Predifined<br>Predifined<br>Predifined<br>Predifined                                                     |
+| Phone         | generate_lead        | user interaction | contact_method<br>CURRENCY<br>VALUE                                                                                                 | Event<br>Event<br>Event                                                       | Dimension<br>Predifined<br>Predifined                                                                                  |
+| Purchase      | purchase             | user interaction | TRANSACTION_ID<br>AFFILIATION<br>CURRENCY<br>VALUE<br>TAX<br>SHIPPING<br>COUPON<br>ITEMS                                                                                 | Event<br>Event<br>Event<br>Event<br>Event<br>Event<br>Event<br>Event                                     | Predifined<br>Predifined<br>Predifined<br>Predifined<br>Predifined<br>Predifined<br>Predifined<br>Predifined                                                     |
 | Search        | search_dialog_opened | user interaction |                                                                                                                                     |                                                                               |                                                                                                                        |
 | - _ok_        | search               | user interaction | search_term                                                                                                                         | Event                                                                         | Predifined                                                                                                             |
 | - _cancel_    | search_dialog_closed | user interaction |                                                                                                                                     |                                                                               |                                                                                                                        |
 | Search        | search_error         | content tool     | error_message<br>toast_impression                                                                                                   | Event<br>Event                                                                | Dimension<br>Dimension                                                                                                 |
-| Video         | video_start          | user interaction | video_duraction<br>video_curent\_\_time<br>video_percent<br>video_status<br>video_provider<br>video_title<br>video_url              | Event<br>Event<br>Event<br>Event<br>Event<br>Event<br>Event                   | Metric<br>Metric<br>Metric<br>Dimension<br>Predifined<br>Predifined<br>Predifined                                      |
-| Video         | video_progress       | content tool     | video_duraction<br>video_curent\_\_time<br>video_percent<br>video_status<br>video_provider<br>video_title<br>video_url              | Event<br>Event<br>Event<br>Event<br>Event<br>Event<br>Event                   | Metric<br>Metric<br>Metric<br>Dimension<br>Predifined<br>Predifined<br>Predifined                                      |
-| Video         | video_complete       | content tool     | video_duraction<br>video_curent\_\_time<br>video_percent<br>video_status<br>video_provider<br>video_title<br>video_url              | Event<br>Event<br>Event<br>Event<br>Event<br>Event<br>Event                   | Metric<br>Metric<br>Metric<br>Dimension<br>Predifined<br>Predifined<br>Predifined                                      |
-| Video Playing | video_stop           | user interaction | video_duraction<br>video_curent\_\_time<br>video_percent<br>video_status<br>video_provider<br>video_title<br>video_url              | Event<br>Event<br>Event<br>Event<br>Event<br>Event<br>Event                   | Metric<br>Metric<br>Metric<br>Dimension<br>Predifined<br>Predifined<br>Predifined                                      |
+| Video         | video_start          | user interaction | video_duraction<br>video_curent\_\_time<br>video_percent<br>video_status<br>video_provider<br>video_title<br>video_url              | Event<br>Event<br>Event<br>Event<br>Event<br>Event<br>Event                   | Metric<br>Metric<br>Dimension<br>Dimension<br>Predifined<br>Predifined<br>Predifined                                      |
+| Video         | video_progress       | content tool     | video_duraction<br>video_curent\_\_time<br>video_percent<br>video_status<br>video_provider<br>video_title<br>video_url              | Event<br>Event<br>Event<br>Event<br>Event<br>Event<br>Event                   | Metric<br>Metric<br>Dimension<br>Dimension<br>Predifined<br>Predifined<br>Predifined                                      |
+| Video         | video_complete       | content tool     | video_duraction<br>video_curent\_\_time<br>video_percent<br>video_status<br>video_provider<br>video_title<br>video_url              | Event<br>Event<br>Event<br>Event<br>Event<br>Event<br>Event                   | Metric<br>Metric<br>Dimension<br>Dimension<br>Predifined<br>Predifined<br>Predifined                                      |
+| Video Playing | video_stop           | user interaction | video_duraction<br>video_curent\_\_time<br>video_percent<br>video_status<br>video_provider<br>video_title<br>video_url              | Event<br>Event<br>Event<br>Event<br>Event<br>Event<br>Event                   | Metric<br>Metric<br>Dimension<br>Dimension<br>Predifined<br>Predifined<br>Predifined                                      |
 | Sign Out      | logout               | user interaction |                                                                                                                                     |                                                                               |                                                                                                                        |
 | Sign Out      | logout_error         | content tool     | error_message<br>toast_impression                                                                                                   | Event<br>Event                                                                | Dimension<br>Dimension                                                                                                 |
 
@@ -217,7 +220,8 @@ This _screen view_ event fires automatically when the mobile app is initiated co
     params.putString("resource_id", resourceId);
     params.putLong("event_timestamp", new Date().getTime()); // milliseconds
     params.putString("custom_timestamp", timeStamp()); // ISO 8061
-
+    params.putString("custom_user_id", ui);
+    
     mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW, params);
 ```
 
@@ -266,6 +270,7 @@ The implemented _purchase event_ `Bundle` is composed of:
     params.putString("resource_id", resourceId);
     params.putLong("event_timestamp", new Date().getTime()); // milliseconds
     params.putString("custom_timestamp", timeStamp()); // ISO 8061
+    params.putString("custom_user_id", ui);
 
     mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.PURCHASE, params);
 ```
@@ -285,16 +290,19 @@ The implemented _error events_ `Bundle` is composed of:
     params.putString("resource_id", resourceId);
     params.putLong("event_timestamp", new Date().getTime()); // milliseconds
     params.putString("custom_timestamp", timeStamp()); // ISO 8061
-
+    params.putString("custom_user_id", ui);
+    
     mFirebaseAnalytics.logEvent(EVENT_NAME, params);
 ```
 
 #### Video Events
 
+The implemented _video events_ `Bundle` is composed of:
+
 ```java
     Bundle params = new Bundle();
-    params.putString("video_duration", vd[0] + "sec");
-    params.putString("video_current_time", vct[0] + "sec");
+    params.putLong("video_duration", vd[0]);
+    params.putLong("video_current_time", vct[0]);
     params.putString("video_percent", milestone + "%");
     params.putString("video_status", vs[0]);
     params.putString("video_provider", vp);
@@ -307,9 +315,14 @@ The implemented _error events_ `Bundle` is composed of:
     params.putString("resource_id", resourceId);
     params.putLong("event_timestamp", new Date().getTime()); // milliseconds
     params.putString("custom_timestamp", timeStamp()); // ISO 8061
-
+    params.putString("custom_user_id", ui);
+    
     mFirebaseAnalytics.logEvent(EVENT_NAME, params);
 ```
+
+### GTM Setup
+
+Initially was considered the use of GTM as part of our implementation but it is not recommended because the limitation it provided and the requirement of download from the container and upload into the App root directory every latest live version that is published on the container.
 
 ## Reference Documentation
 
