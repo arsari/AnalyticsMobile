@@ -23,7 +23,6 @@
     android:id="@+id/githubTagImageView"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginStart="16dp"
     android:layout_marginTop="8dp"
     android:contentDescription="@string/github_tag"
     app:layout_constraintStart_toEndOf="@+id/githubBadgeImageView"

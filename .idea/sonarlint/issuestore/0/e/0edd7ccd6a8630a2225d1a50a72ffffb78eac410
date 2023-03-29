@@ -1,45 +1,45 @@
 
 p
-java:S1192…"MDefine a constant instead of duplicating this literal "video_status" 3 times.(”Á»œüÿÿÿÿ8²³¸Õï0
+java:S1192"MDefine a constant instead of duplicating this literal "video_status" 3 times.(”Á»œüÿÿÿÿ8çœÏáğ0
 n
-java:S1192¡"KDefine a constant instead of duplicating this literal "event_type" 3 times.(ØÎÔşÿÿÿÿ8²³¸Õï0
+java:S1192«"KDefine a constant instead of duplicating this literal "event_type" 3 times.(ØÎÔşÿÿÿÿ8çœÏáğ0
 o
-java:S1192‡"LDefine a constant instead of duplicating this literal "video_title" 3 times.(¬…ÛÙüÿÿÿÿ8²³¸Õï0
+java:S1192‘"LDefine a constant instead of duplicating this literal "video_title" 3 times.(¬…ÛÙüÿÿÿÿ8çœÏáğ0
 s
-java:S1192¢"PDefine a constant instead of duplicating this literal "event_timestamp" 3 times.(Ò¬Ìùÿÿÿÿ8³³¸Õï0
+java:S1192¬"PDefine a constant instead of duplicating this literal "event_timestamp" 3 times.(Ò¬Ìùÿÿÿÿ8çœÏáğ0
 n
-java:S1192£"QDefine a constant instead of duplicating this literal "custom_timestamp" 3 times.(‡×8³³¸Õï0
+java:S1192­"QDefine a constant instead of duplicating this literal "custom_timestamp" 3 times.(‡×8çœÏáğ0
 r
-java:S1192¤"ODefine a constant instead of duplicating this literal "custom_user_id" 3 times.(ªíÑĞşÿÿÿÿ8³³¸Õï0
+java:S1192®"ODefine a constant instead of duplicating this literal "custom_user_id" 3 times.(ªíÑĞşÿÿÿÿ8çœÏáğ0
 m
-java:S1192‚"ODefine a constant instead of duplicating this literal "video_duration" 3 times.(ù—ÚŒ8³³¸Õï0
+java:S1192Œ"ODefine a constant instead of duplicating this literal "video_duration" 3 times.(ù—ÚŒ8çœÏáğ0
 m
-java:S1192†"ODefine a constant instead of duplicating this literal "video_provider" 3 times.(ıŠ™Ø8³³¸Õï0
+java:S1192"ODefine a constant instead of duplicating this literal "video_provider" 3 times.(ıŠ™Ø8çœÏáğ0
 m
-java:S1192ˆ"JDefine a constant instead of duplicating this literal "video_url" 3 times.(éŞÃêúÿÿÿÿ8³³¸Õï0
+java:S1192’"JDefine a constant instead of duplicating this literal "video_url" 3 times.(éŞÃêúÿÿÿÿ8çœÏáğ0
 l
-java:S1192„"NDefine a constant instead of duplicating this literal "video_percent" 3 times.(¿–³8³³¸Õï0
+java:S1192"NDefine a constant instead of duplicating this literal "video_percent" 3 times.(¿–³8çœÏáğ0
 v
-java:S1192ƒ"SDefine a constant instead of duplicating this literal "video_current_time" 3 times.(¹ôÍùÿÿÿÿ8³³¸Õï0
+java:S1192"SDefine a constant instead of duplicating this literal "video_current_time" 3 times.(¹ôÍùÿÿÿÿ8çœÏáğ0
 L
-java:S1874T"/Remove this use of "Handler"; it is deprecated.(””Ò±8Âµ¸Õï0
+java:S1874V"/Remove this use of "Handler"; it is deprecated.(””Ò±8ÁÏáğ0
 S
-java:S1874e"7Remove this use of "FLAG_FULLSCREEN"; it is deprecated.(±ùËD8Äµ¸Õï0
+java:S1874g"7Remove this use of "FLAG_FULLSCREEN"; it is deprecated.(±ùËD8ÃÏáğ0
 S
-java:S1874e"7Remove this use of "FLAG_FULLSCREEN"; it is deprecated.(±ùËD8Äµ¸Õï0
+java:S1874g"7Remove this use of "FLAG_FULLSCREEN"; it is deprecated.(±ùËD8ÃÏáğ0
 u
-java:S3776§"RRefactor this method to reduce its Cognitive Complexity from 46 to the 15 allowed.(›Öòùüÿÿÿÿ8Õµ¸Õï0
+java:S3776±"RRefactor this method to reduce its Cognitive Complexity from 46 to the 15 allowed.(›Öòùüÿÿÿÿ8ÎÏáğ0
 I
-java:S1874–"+Remove this use of "get"; it is deprecated.(ë™•8íµ¸Õï0
+java:S1874 "+Remove this use of "get"; it is deprecated.(ë™•8ßÏáğ0
 I
-java:S1874–"+Remove this use of "get"; it is deprecated.(ë™•8íµ¸Õï0
+java:S1874 "+Remove this use of "get"; it is deprecated.(ë™•8ßÏáğ0
 N
-java:S1874™"+Remove this use of "get"; it is deprecated.(ª¡–óøÿÿÿÿ8îµ¸Õï0
+java:S1874£"+Remove this use of "get"; it is deprecated.(ª¡–óøÿÿÿÿ8àÏáğ0
 I
-java:S1874Ÿ"+Remove this use of "get"; it is deprecated.(ÇÎ–8îµ¸Õï0
+java:S1874©"+Remove this use of "get"; it is deprecated.(ÇÎ–8àÏáğ0
 I
-java:S1874Ÿ"+Remove this use of "get"; it is deprecated.(ÇÎ–8ïµ¸Õï0
+java:S1874©"+Remove this use of "get"; it is deprecated.(ÇÎ–8àÏáğ0
 N
-java:S1874¡"+Remove this use of "get"; it is deprecated.(îËñ²şÿÿÿÿ8ïµ¸Õï0
+java:S1874«"+Remove this use of "get"; it is deprecated.(îËñ²şÿÿÿÿ8àÏáğ0
 I
-java:S1874¤"+Remove this use of "get"; it is deprecated.(Ï²¤Ü8ïµ¸Õï0
+java:S1874®"+Remove this use of "get"; it is deprecated.(Ï²¤Ü8áÏáğ0

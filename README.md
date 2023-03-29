@@ -1,6 +1,6 @@
 # AnalyticsMobile
 
-[![AnalyticsMobile Releases-Tags](https://img.shields.io/github/v/tag/arsari/AnalyticsMobile?color=blue&logo=github&sort=semver&style=for-the-badge)](https://github.com/arsari/AnalyticsWeb/tags "Go to AnalyticsMobile Releases-Tags")&nbsp;&nbsp;&nbsp;&nbsp;[![MIT License](https://img.shields.io/badge/license-MIT-green.svg?style=for-the-badge&logo=f-secure)](LICENSE "Click to see License")<br>[![AnalyticsWeb](https://img.shields.io/badge/counterpart_repo-web_analytics-orange.svg?style=for-the-badge&logo=github)](https://www.github.com/arsari/AnalyticsWeb "Click Here to Visit Repo!")
+[![AnalyticsMobile Releases-Tags](https://img.shields.io/github/v/tag/arsari/AnalyticsMobile?color=blue&logo=github&sort=semver&style=for-the-badge)](https://www.github.com/arsari/AnalyticsMobile/tags "Go to AnalyticsMobile Releases-Tags")&nbsp;&nbsp;&nbsp;&nbsp;[![MIT License](https://img.shields.io/badge/license-MIT-green.svg?style=for-the-badge&logo=f-secure)](LICENSE "Click to see License")<br>[![AnalyticsWeb](https://img.shields.io/badge/counterpart-web_analytics-orange.svg?style=for-the-badge&logo=github)](https://arsari.github.com/AnalyticsWeb "Click Here to Visit the Project!")
 
 ## Mobile Analytics Implementation Playground
 
@@ -62,7 +62,7 @@ This implementation is based on JAVA programming language with the following Pro
 
 In Android Studio, first click the `Android` label to open the drop-down menu for the project navigator view, and choose Project to see the full root directory structure of the project. Expand the project directory and the **/app/** folder within, and drag-and-drop the `google-services.json` file, downloaded from the Firebase console, into the **/app/** directory.
 
-1. Look for **<project>/build.gradle** file, opened, and add the following before the plugins object, if any:
+1. Look for **<project_name>/build.gradle** file, opened, and add the following before the plugins object, if any: 
 
 ```java
 buildscript {
@@ -81,7 +81,7 @@ buildscript {
 
 > _Note! If a newer version is available, this will be indicated by a yellow highlight around the `classpath` code._
 
-2. Look for **<project>/app/build.gradle** file and add the following:
+1. Look for **<project_name>/app/build.gradle** file and add the following: 
 
 ```java
 plugins {
@@ -112,15 +112,15 @@ dependencies {
 
 > _Note! By using the Firebase Android BoM, your app will always use compatible versions of Firebase Android libraries. If there are newer versions of the Firebase BOM, Firebase Analytics, and Google Tag Manager dependencies available, this will be indicated with a yellow highlight around the `implementation` statements._
 
-GTM was added as a dependency in the script above. It won’t do anything until we configure the container.
+GTM was added as a dependency in the script above but the container need to be configure. See [GTM setup](#gtm-setup) for additional steps.
 
-3. Declare the `com.google.firebase.analytics.FirebaseAnalytics` object at the top of your activity:
+1. Declare the `com.google.firebase.analytics.FirebaseAnalytics` object at the top of your activity:
 
 ```java
 private FirebaseAnalytics mFirebaseAnalytics
 ```
 
-4. Initialize it in the `onCreate()`` method:
+1. Initialize it in the `onCreate()`` method:
 
 ```java
 mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
@@ -167,10 +167,10 @@ The tagging implementation for events log consider the followings user actions (
 | - _ok_        | search               | user interaction | search_term                                                                                                                         | Event                                                                         | Predefined                                                                                                             |
 | - _cancel_    | search_dialog_closed | user interaction |                                                                                                                                     |                                                                               |                                                                                                                        |
 | Search        | search_error         | content tool     | error_message<br>toast_impression                                                                                                   | Event<br>Event                                                                | Dimension<br>Dimension                                                                                                 |
-| Video         | video_start          | user interaction | video_duration<br>video_current\_\_time<br>video_percent<br>video_status<br>video_provider<br>video_title<br>video_url              | Event<br>Event<br>Event<br>Event<br>Event<br>Event<br>Event                   | Metric<br>Metric<br>Dimension<br>Dimension<br>Predefined<br>Predefined<br>Predefined                                      |
-| Video         | video_progress       | content tool     | video_duration<br>video_current\_\_time<br>video_percent<br>video_status<br>video_provider<br>video_title<br>video_url              | Event<br>Event<br>Event<br>Event<br>Event<br>Event<br>Event                   | Metric<br>Metric<br>Dimension<br>Dimension<br>Predefined<br>Predefined<br>Predefined                                      |
-| Video         | video_complete       | content tool     | video_duration<br>video_current\_\_time<br>video_percent<br>video_status<br>video_provider<br>video_title<br>video_url              | Event<br>Event<br>Event<br>Event<br>Event<br>Event<br>Event                   | Metric<br>Metric<br>Dimension<br>Dimension<br>Predefined<br>Predefined<br>Predefined                                      |
-| Video Playing | video_stop           | user interaction | video_duration<br>video_current\_\_time<br>video_percent<br>video_status<br>video_provider<br>video_title<br>video_url              | Event<br>Event<br>Event<br>Event<br>Event<br>Event<br>Event                   | Metric<br>Metric<br>Dimension<br>Dimension<br>Predefined<br>Predefined<br>Predefined                                      |
+| Video         | video_start          | user interaction | video_duration<br>video_current\_\_time<br>video_percent<br>video_status<br>video_provider<br>video_title<br>video_url              | Event<br>Event<br>Event<br>Event<br>Event<br>Event<br>Event                   | Metric (seconds)<br>Metric (seconds)<br>Dimension<br>Dimension<br>Predefined<br>Predefined<br>Predefined                                      |
+| Video         | video_progress       | content tool     | video_duration<br>video_current\_\_time<br>video_percent<br>video_status<br>video_provider<br>video_title<br>video_url              | Event<br>Event<br>Event<br>Event<br>Event<br>Event<br>Event                   | Metric (seconds)<br>Metric (seconds)<br>Dimension<br>Dimension<br>Predefined<br>Predefined<br>Predefined                                      |
+| Video         | video_complete       | content tool     | video_duration<br>video_current\_\_time<br>video_percent<br>video_status<br>video_provider<br>video_title<br>video_url              | Event<br>Event<br>Event<br>Event<br>Event<br>Event<br>Event                   | Metric (seconds)<br>Metric (seconds)<br>Dimension<br>Dimension<br>Predefined<br>Predefined<br>Predefined                                      |
+| Video Playing | video_stop           | user interaction | video_duration<br>video_current\_\_time<br>video_percent<br>video_status<br>video_provider<br>video_title<br>video_url              | Event<br>Event<br>Event<br>Event<br>Event<br>Event<br>Event                   | Metric (seconds)<br>Metric (seconds)<br>Dimension<br>Dimension<br>Predefined<br>Predefined<br>Predefined                                      |
 | Sign Out      | logout               | user interaction |                                                                                                                                     |                                                                               |                                                                                                                        |
 | Sign Out      | logout_error         | content tool     | error_message<br>toast_impression                                                                                                   | Event<br>Event                                                                | Dimension<br>Dimension                                                                                                 |
 
@@ -200,7 +200,7 @@ The `dataLayer` array-object for this five classification of event objects has b
 
 #### Screen View Event
 
-This _screen view_ event fires automatically when the mobile app is initiated composed of the follow `Bundle`.
+This _screen view_ event fires automatically when the mobile app is initiated or user leave and came back to the App. The event `Bundle` is composed of:
 
 ```java
     Bundle params = new Bundle();
@@ -214,11 +214,11 @@ This _screen view_ event fires automatically when the mobile app is initiated co
     params.putString("content_type", "Playground");
     params.putString("language_code", "en-US");
 
-    // Global parameters
+    // Global Parameters
     params.putString("event_type", et);
     params.putString("button_text", click);
     params.putString("resource_id", resourceId);
-    params.putLong("event_timestamp", new Date().getTime()); // milliseconds
+    params.putString("event_timestamp", new Date().getTime()); // milliseconds
     params.putString("custom_timestamp", timeStamp()); // ISO 8061
     params.putString("custom_user_id", ui);
     
@@ -226,6 +226,50 @@ This _screen view_ event fires automatically when the mobile app is initiated co
 ```
 
 #### General Events
+
+The _general events_ are events that have simple parameters `Bundle` some of those parameters pre-defined in the Firebase SDK.
+
+```java
+    Bundle params = new Bundle();
+    
+    // login
+    params.putString(FirebaseAnalytics.Param.METHOD, "google");
+    
+    // generate_lead
+    params.putString("contact_method", cm);
+    params.putString(FirebaseAnalytics.Param.CURRENCY, cc);
+    params.putDouble(FirebaseAnalytics.Param.VALUE, ev);
+    
+    // outbound_link
+    params.putString("link_url", url);
+    params.putString("link_text", text);
+    params.putString("link_id", resourceId);
+    params.putBoolean("outbound", ol);
+    
+    // Search
+    params.putString(FirebaseAnalytics.Param.SEARCH_TERM, st);
+    
+    // Global Parameters
+    params.putString("event_type", et[0]);
+    params.putString("button_text", desc == null ? click : desc);
+    params.putString("resource_id", resourceId);
+    params.putString("event_timestamp", String.valueOf(new Date().getTime())); // milliseconds
+    params.putString("custom_timestamp", timeStamp()); // ISO 8061
+    params.putString("custom_user_id", ui);
+    
+    case "login":
+        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.LOGIN, params);
+        break;
+    case "generate_lead":
+        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.GENERATE_LEAD, params);
+        break;
+    case "search":
+        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SEARCH, params);
+        break;
+    default:
+        mFirebaseAnalytics.logEvent(en[0], params);
+        break;
+```
 
 #### Purchase Event
 
@@ -265,10 +309,10 @@ The implemented _purchase event_ `Bundle` is composed of:
     params.putParcelableArray(FirebaseAnalytics.Param.ITEMS, new Parcelable[]{item1, item2});
 
     // Global parameters
-    params.putString("event_type", et);
-    params.putString("button_text", click);
+    params.putString("event_type", et[0]);
+    params.putString("button_text", desc == null ? click : desc);
     params.putString("resource_id", resourceId);
-    params.putLong("event_timestamp", new Date().getTime()); // milliseconds
+    params.putString("event_timestamp", String.valueOf(new Date().getTime())); // milliseconds
     params.putString("custom_timestamp", timeStamp()); // ISO 8061
     params.putString("custom_user_id", ui);
 
@@ -285,10 +329,10 @@ The implemented _error events_ `Bundle` is composed of:
     params.putBoolean("toast_impression", true);
 
     // Global parameters
-    params.putString("event_type", et);
-    params.putString("button_text", click);
+    params.putString("event_type", et[0]);
+    params.putString("button_text", desc == null ? click : desc);
     params.putString("resource_id", resourceId);
-    params.putLong("event_timestamp", new Date().getTime()); // milliseconds
+    params.putString("event_timestamp", String.valueOf(new Date().getTime())); // milliseconds
     params.putString("custom_timestamp", timeStamp()); // ISO 8061
     params.putString("custom_user_id", ui);
     
@@ -301,19 +345,19 @@ The implemented _video events_ `Bundle` is composed of:
 
 ```java
     Bundle params = new Bundle();
-    params.putLong("video_duration", vd[0]);
+    params.putLong("video_duration", vd);
     params.putLong("video_current_time", vct[0]);
     params.putString("video_percent", milestone + "%");
     params.putString("video_status", vs[0]);
     params.putString("video_provider", vp);
     params.putString("video_title", vt);
     params.putString("video_url", vu);
-
+    
     // Global parameters
-    params.putString("event_type", et);
-    params.putString("button_text", click);
+    params.putString("event_type", et[0]);
+    params.putString("button_text", desc == null ? click : desc);
     params.putString("resource_id", resourceId);
-    params.putLong("event_timestamp", new Date().getTime()); // milliseconds
+    params.putString("event_timestamp", String.valueOf(new Date().getTime())); // milliseconds
     params.putString("custom_timestamp", timeStamp()); // ISO 8061
     params.putString("custom_user_id", ui);
     
