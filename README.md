@@ -60,71 +60,71 @@ This implementation is based on JAVA programming language with the following Pro
 
 ### Fundamentals: Setup Firebase SDK and Analytics SDK
 
-In Android Studio, first click the `Android` label to open the drop-down menu for the project navigator view, and choose Project to see the full root directory structure of the project. Expand the project directory and the **/app/** folder within, and drag-and-drop the `google-services.json` file, downloaded from the Firebase console, into the **/app/** directory.
+In Android Studio, first click the `Android` label to open the drop-down menu for the project navigator view, and choose Project to see the full root directory structure of the project. Expand the project directory and the **/app/** directory within, and drag-and-drop the `google-services.json` file, downloaded from the Firebase console, into the **/app/** directory.
 
-1. Look for **<project_name>/build.gradle** file, opened, and add the following before the plugins object, if any: 
+1. Look for `<project_name>/build.gradle` file, opened, and add the following before the plugins object, if any: 
 
-```java
-buildscript {
-  repositories {
-    // Make sure that you have the following two repositories
-    google()  // Google's Maven repository
-    mavenCentral()  // Maven Central repository
-  }
+    ```java
+    buildscript {
+      repositories {
+        // Make sure that you have the following two repositories
+        google()  // Google's Maven repository
+        mavenCentral()  // Maven Central repository
+      }
+    
+      dependencies {
+        // Add the dependency for the Google services Gradle plugin
+        classpath 'com.google.gms:google-services:4.3.14'
+      }
+    }
+    ```
 
-  dependencies {
-    // Add the dependency for the Google services Gradle plugin
-    classpath 'com.google.gms:google-services:4.3.14'
-  }
-}
-```
+    > _Note! If a newer version is available, this will be indicated by a yellow highlight around the `classpath` code._
 
-> _Note! If a newer version is available, this will be indicated by a yellow highlight around the `classpath` code._
+2. Look for `<project_name>/app/build.gradle` file and add the following: 
 
-1. Look for **<project_name>/app/build.gradle** file and add the following: 
+    ```java
+    plugins {
+        ...
+    
+        // Firebase: Add the Google services Gradle plugin
+        id 'com.google.gms.google-services'
+    }
+    
+    dependencies {
+        ...
+    
+        // Firebase: Import the Firebase BoM
+        implementation platform('com.google.firebase:firebase-bom:31.2.3')
+        // Firebase Analytics (Java)
+        implementation 'com.google.firebase:firebase-analytics:21.2.0'
+        // TODO: Add the dependencies for Firebase products you want to use
+          /**
+           * When using the BoM, don't specify versions in Firebase dependencies
+           * Add the dependencies for any other desired Firebase products
+           * https://firebase.google.com/docs/android/setup#available-libraries
+           */
+    
+        // GTM: Import the tag manager services
+        implementation 'com.google.android.gms:play-services-tagmanager:18.0.2'
+    }
+    ```
+    
+    > _Note! By using the Firebase Android BoM, your app will always use compatible versions of Firebase Android libraries. If there are newer versions of the Firebase BOM, Firebase Analytics, and Google Tag Manager dependencies available, this will be indicated with a yellow highlight around the `implementation` statements._
+    
+    GTM was added as a dependency in the script above but the container need to be configure. See [GTM setup](#gtm-setup) for additional steps.
 
-```java
-plugins {
-    ...
+3. Declare the `com.google.firebase.analytics.FirebaseAnalytics` object at the top of your activity:
 
-    // Firebase: Add the Google services Gradle plugin
-    id 'com.google.gms.google-services'
-}
+    ```java
+    private FirebaseAnalytics mFirebaseAnalytics
+    ```
 
-dependencies {
-    ...
+4. Initialize it in the `onCreate()`` method:
 
-    // Firebase: Import the Firebase BoM
-    implementation platform('com.google.firebase:firebase-bom:31.2.3')
-    // Firebase Analytics (Java)
-    implementation 'com.google.firebase:firebase-analytics:21.2.0'
-    // TODO: Add the dependencies for Firebase products you want to use
-      /**
-       * When using the BoM, don't specify versions in Firebase dependencies
-       * Add the dependencies for any other desired Firebase products
-       * https://firebase.google.com/docs/android/setup#available-libraries
-       */
-
-    // GTM: Import the tag manager services
-    implementation 'com.google.android.gms:play-services-tagmanager:18.0.2'
-}
-```
-
-> _Note! By using the Firebase Android BoM, your app will always use compatible versions of Firebase Android libraries. If there are newer versions of the Firebase BOM, Firebase Analytics, and Google Tag Manager dependencies available, this will be indicated with a yellow highlight around the `implementation` statements._
-
-GTM was added as a dependency in the script above but the container need to be configure. See [GTM setup](#gtm-setup) for additional steps.
-
-1. Declare the `com.google.firebase.analytics.FirebaseAnalytics` object at the top of your activity:
-
-```java
-private FirebaseAnalytics mFirebaseAnalytics
-```
-
-1. Initialize it in the `onCreate()`` method:
-
-```java
-mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
-```
+    ```java
+    mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+    ```
 
 ### Tagging Implementation
 
@@ -152,29 +152,29 @@ To facilitate identified user actions by their UserID, a `custom_user_id` custom
 
 The tagging implementation for events log consider the followings user actions (ui interactions), system events (content tools), and errors based on a app resource click and a `setOnClickListener()` method to fire the corresponding **events**:
 
-> _Note! Events predefined in Firebase has been capitalized._
+> _Note! Events and parameters predefined in Firebase SDK has been capitalized._
 
 | User Action   | Event                | Type             | Parameters                                                                                                                          | GA4 Scope                                                                     | GA4 Definitions                                                                                                        |
 | ------------- | -------------------- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
-| Screen View   | screen_view          | content tool     | SCREEN_NAME<br>SCREEN_CLASS<br>app_name<br>app_desc<br>app_author<br>author_email<br>content_group<br>content_type<br>language_code | Event<br>Event<br>Event<br>Event<br>Event<br>Event<br>Event<br>Event<br>Event | Predefined<br>Predefined<br>Dimension<br>Dimension<br>Dimension<br>Dimension<br>Predefined<br>Predefined<br>Predefined |
-| Sign In       | login                | user interaction | method                                                                                                                              | Event                                                                         | Predefined                                                                                                             |
+| Screen View   | SCREEN_VIEW          | content tool     | SCREEN_NAME<br>SCREEN_CLASS<br>app_name<br>app_desc<br>app_author<br>author_email<br>content_group<br>content_type<br>language_code | Event<br>Event<br>Event<br>Event<br>Event<br>Event<br>Event<br>Event<br>Event | Predefined<br>Predefined<br>Dimension<br>Dimension<br>Dimension<br>Dimension<br>Predefined<br>Predefined<br>Predefined |
+| Sign In       | LOGIN                | user interaction | method                                                                                                                              | Event                                                                         | Predefined                                                                                                             |
 | Sign In       | login_error          | content tool     | error_message<br>toast_impression                                                                                                   | Event<br>Event                                                                | Dimension<br>Dimension                                                                                                 |
-| Email         | generate_lead        | user interaction | contact_method<br>CURRENCY<br>VALUE                                                                                                 | Event<br>Event<br>Event                                                       | Dimension<br>Predefined<br>Predefined                                                                                  |
+| Email         | GENERATE_LEAD        | user interaction | contact_method<br>CURRENCY<br>VALUE                                                                                                 | Event<br>Event<br>Event                                                       | Dimension<br>Predefined<br>Predefined                                                                                  |
 | Outbound Link | outbound_link        | user interaction | link_id<br>link_url<br>link_text<br>outbound                                                                                        | Event<br>Event<br>Event<br>Event                                              | Predefined<br>Predefined<br>Predefined<br>Predefined                                                                   |
-| Phone         | generate_lead        | user interaction | contact_method<br>CURRENCY<br>VALUE                                                                                                 | Event<br>Event<br>Event                                                       | Dimension<br>Predefined<br>Predefined                                                                                  |
-| Purchase      | purchase             | user interaction | TRANSACTION_ID<br>AFFILIATION<br>CURRENCY<br>VALUE<br>TAX<br>SHIPPING<br>COUPON<br>ITEMS                                                                                 | Event<br>Event<br>Event<br>Event<br>Event<br>Event<br>Event<br>Event                                     | Predefined<br>Predefined<br>Predefined<br>Predefined<br>Predefined<br>Predefined<br>Predefined<br>Predefined                                                     |
+| Phone         | GENERATE_LEAD        | user interaction | contact_method<br>CURRENCY<br>VALUE                                                                                                 | Event<br>Event<br>Event                                                       | Dimension<br>Predefined<br>Predefined                                                                                  |
+| Purchase      | PURCHASE             | user interaction | TRANSACTION_ID<br>AFFILIATION<br>CURRENCY<br>VALUE<br>TAX<br>SHIPPING<br>COUPON<br>ITEMS                                                                                 | Event<br>Event<br>Event<br>Event<br>Event<br>Event<br>Event<br>Event                                     | Predefined<br>Predefined<br>Predefined<br>Predefined<br>Predefined<br>Predefined<br>Predefined<br>Predefined                                                     |
 | Search        | search_dialog_opened | user interaction |                                                                                                                                     |                                                                               |                                                                                                                        |
-| - _ok_        | search               | user interaction | search_term                                                                                                                         | Event                                                                         | Predefined                                                                                                             |
+| - _ok_        | SEARCH               | user interaction | search_term                                                                                                                         | Event                                                                         | Predefined                                                                                                             |
 | - _cancel_    | search_dialog_closed | user interaction |                                                                                                                                     |                                                                               |                                                                                                                        |
 | Search        | search_error         | content tool     | error_message<br>toast_impression                                                                                                   | Event<br>Event                                                                | Dimension<br>Dimension                                                                                                 |
-| Video         | video_start          | user interaction | video_duration<br>video_current\_\_time<br>video_percent<br>video_status<br>video_provider<br>video_title<br>video_url              | Event<br>Event<br>Event<br>Event<br>Event<br>Event<br>Event                   | Metric (seconds)<br>Metric (seconds)<br>Dimension<br>Dimension<br>Predefined<br>Predefined<br>Predefined                                      |
-| Video         | video_progress       | content tool     | video_duration<br>video_current\_\_time<br>video_percent<br>video_status<br>video_provider<br>video_title<br>video_url              | Event<br>Event<br>Event<br>Event<br>Event<br>Event<br>Event                   | Metric (seconds)<br>Metric (seconds)<br>Dimension<br>Dimension<br>Predefined<br>Predefined<br>Predefined                                      |
-| Video         | video_complete       | content tool     | video_duration<br>video_current\_\_time<br>video_percent<br>video_status<br>video_provider<br>video_title<br>video_url              | Event<br>Event<br>Event<br>Event<br>Event<br>Event<br>Event                   | Metric (seconds)<br>Metric (seconds)<br>Dimension<br>Dimension<br>Predefined<br>Predefined<br>Predefined                                      |
-| Video Playing | video_stop           | user interaction | video_duration<br>video_current\_\_time<br>video_percent<br>video_status<br>video_provider<br>video_title<br>video_url              | Event<br>Event<br>Event<br>Event<br>Event<br>Event<br>Event                   | Metric (seconds)<br>Metric (seconds)<br>Dimension<br>Dimension<br>Predefined<br>Predefined<br>Predefined                                      |
+| Video         | video_start          | user interaction | video_duration<br>video_current_time<br>video_percent<br>video_status<br>video_provider<br>video_title<br>video_url              | Event<br>Event<br>Event<br>Event<br>Event<br>Event<br>Event                   | Metric (sec)<br>Metric (sec)<br>Dimension<br>Dimension<br>Predefined<br>Predefined<br>Predefined                                      |
+| Video         | video_progress       | content tool     | video_duration<br>video_current_time<br>video_percent<br>video_status<br>video_provider<br>video_title<br>video_url              | Event<br>Event<br>Event<br>Event<br>Event<br>Event<br>Event                   | Metric (sec)<br>Metric (sec)<br>Dimension<br>Dimension<br>Predefined<br>Predefined<br>Predefined                                      |
+| Video         | video_complete       | content tool     | video_duration<br>video_current_time<br>video_percent<br>video_status<br>video_provider<br>video_title<br>video_url              | Event<br>Event<br>Event<br>Event<br>Event<br>Event<br>Event                   | Metric (sec)<br>Metric (sec)<br>Dimension<br>Dimension<br>Predefined<br>Predefined<br>Predefined                                      |
+| Video Playing | video_stop           | user interaction | video_duration<br>video_current_time<br>video_percent<br>video_status<br>video_provider<br>video_title<br>video_url              | Event<br>Event<br>Event<br>Event<br>Event<br>Event<br>Event                   | Metric (sec)<br>Metric (sec)<br>Dimension<br>Dimension<br>Predefined<br>Predefined<br>Predefined                                      |
 | Sign Out      | logout               | user interaction |                                                                                                                                     |                                                                               |                                                                                                                        |
 | Sign Out      | logout_error         | content tool     | error_message<br>toast_impression                                                                                                   | Event<br>Event                                                                | Dimension<br>Dimension                                                                                                 |
 
-Following global parameters apply to to the majority of the above **events**:
+The following global parameters apply to most of the above **events**:
 
 | Global Parameters              | GA4 Scope | GA4 Definitions |
 | ------------------------------ | --------- | --------------- |
@@ -227,7 +227,7 @@ This _screen view_ event fires automatically when the mobile app is initiated or
 
 #### General Events
 
-The _general events_ are events that have simple parameters `Bundle` some of those parameters pre-defined in the Firebase SDK.
+The _general events_ are events that have simple parameters `Bundle` some of those parameters predefined in the Firebase SDK.
 
 ```java
     Bundle params = new Bundle();
@@ -246,7 +246,7 @@ The _general events_ are events that have simple parameters `Bundle` some of tho
     params.putString("link_id", resourceId);
     params.putBoolean("outbound", ol);
     
-    // Search
+    // search
     params.putString(FirebaseAnalytics.Param.SEARCH_TERM, st);
     
     // Global Parameters
@@ -366,7 +366,7 @@ The implemented _video events_ `Bundle` is composed of:
 
 ### GTM Setup
 
-Initially was considered the use of GTM as part of our implementation but it is not recommended because the limitation it provided and the requirement of download from the container and upload into the App root directory every latest live version that is published on the container.
+I initially considered the use of GTM as part of the implementation but it is not recommended because the limitations to setup tags versus the Web implementation, and the "ridiculous" requirement of download from the container the latest live version published and upload it into the App directory `/app/src/assets/containers` every time a publish of the container is made.
 
 ## Reference Documentation
 

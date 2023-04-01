@@ -15,7 +15,8 @@ android {
         versionCode 2
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-      versionCode 2
+      versionCode 3
+        versionName '3.0'
     }
 
     buildTypes {
