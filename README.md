@@ -141,10 +141,9 @@ On our implementation, we create a `userAuthenticated(BOOLEAN_VALUE)` method whi
 
 ```java
 mFirebaseAnalytics.setUserId(ui);
+
 mFirebaseAnalytics.setUserProperty("logged_in", "true");
-
 or
-
 mFirebaseAnalytics.setUserProperty("logged_in", "false");
 ```
 
@@ -341,7 +340,7 @@ The implemented _error events_ `Bundle` is composed of:
 
 #### Video Events
 
-The implemented _video events_ `Bundle` is composed of:
+The implemented _video start_ and _video stop_ `Bundle` is composed of:
 
 ```java
     Bundle params = new Bundle();
@@ -361,7 +360,35 @@ The implemented _video events_ `Bundle` is composed of:
     params.putString("custom_timestamp", timeStamp()); // ISO 8061
     params.putString("custom_user_id", ui);
     
-    mFirebaseAnalytics.logEvent(EVENT_NAME, params);
+    mFirebaseAnalytics.logEvent("video_start", params);
+    or
+    mFirebaseAnalytics.logEvent("video_stop", params);
+```
+
+However, the implemented _video progress_ and _video complete_ `Bundle` is different in their parameters variable to reduce conflicts with others parameters because it is running in the background. This `Bundle` is composed of:
+
+```java
+    Bundle progressParams = new Bundle();
+    progressParams.putLong("video_duration", vd);
+    progressParams.putLong("video_current_time", vct[0]);
+    progressParams.putString("video_percent", milestone + "%");
+    progressParams.putString("video_status", vs[0]);
+    progressParams.putString("video_provider", vp);
+    progressParams.putString("video_title", vt);
+    progressParams.putString("video_url", vu);
+    
+    // Global parameters
+    progressParams.putString("event_type", et[0]);
+    progressParams.putString("button_text", desc == null ? click : desc);
+    progressParams.putString("resource_id", resourceId);
+    progressParams.putString("event_timestamp", String.valueOf(new Date().getTime())); // milliseconds
+    progressParams.putString("custom_timestamp", timeStamp()); // ISO 8061
+    progressParams.putString("custom_user_id", ui);
+    
+    mFirebaseAnalytics.logEvent("video_progress", progressParams);
+    or
+    mFirebaseAnalytics.logEvent("video_complete", progressParams);
+    
 ```
 
 ### GTM Setup

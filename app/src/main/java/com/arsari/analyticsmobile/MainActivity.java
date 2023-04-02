@@ -34,6 +34,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestBuilder;
@@ -88,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
 		public void handleMessage(Message msg) {
 			Button vbtn = findViewById(R.id.videoButton);
 			vbtn.setText(R.string.video_btn);
+			vbtn.setBackgroundColor(getColor(R.color.purple_500));
 		}
 	};
 	boolean vplay = false; // Playing video
@@ -123,8 +125,8 @@ public class MainActivity extends AppCompatActivity {
 			.error(R.drawable.image_error)
 			.listener(new SvgSoftwareLayerSetter());
 
-		requestBuilder.load(badgeURI).centerInside().into(badgeImageView);
-		requestBuilder.load(tagURI).centerInside().into(tagImageView);
+		requestBuilder.load(badgeURI).fitCenter().into(badgeImageView);
+		requestBuilder.load(tagURI).fitCenter().into(tagImageView);
 
 		displayJSON = findViewById(R.id.displayJSONTextView);
 		displayJSON.setMovementMethod(ScrollingMovementMethod.getInstance());
@@ -453,12 +455,14 @@ public class MainActivity extends AppCompatActivity {
 				break;
 			case "Video":
 				vbtn.setText(R.string.video_play);
+				vbtn.setBackgroundColor(getColor(R.color.red));
 				en[0] = "video_start";
 				vplay = true;
 				vstop = false;
 				break;
 			case "Video Playing":
 				vbtn.setText(R.string.video_btn);
+				vbtn.setBackgroundColor(getColor(R.color.purple_500));
 				en[0] = "video_stop";
 				vstop = true;
 				vplay = false;
@@ -532,6 +536,7 @@ public class MainActivity extends AppCompatActivity {
 
 		if (Boolean.TRUE.equals(vplay)) {
 			Timer timer = new Timer();
+			Bundle progressParams = new Bundle();
 			int finalVd = vd;
 			timer.scheduleAtFixedRate(new TimerTask() {
 				@Override
@@ -541,45 +546,44 @@ public class MainActivity extends AppCompatActivity {
 						Matcher progressMatcher = progressPattern.matcher(String.valueOf(milestone));
 						boolean progressFound = progressMatcher.find();
 						if (progressFound) {
-							en[0] = "video_progress";
 							et[0] = etTool;
 							vs[0] = "Progress " + milestone + "%";
 							vct[0] = vprogress;
-							params.putLong("video_duration", finalVd);
-							params.putLong("video_current_time", vct[0]);
-							params.putString("video_percent", milestone + "%");
-							params.putString("video_status", vs[0]);
-							params.putString("video_provider", vp);
-							params.putString("video_title", vt);
-							params.putString("video_url", vu);
-							params.putString("event_type", et[0]);
-							params.putString("event_timestamp", String.valueOf(new Date().getTime())); // milliseconds
-							params.putString("custom_timestamp", timeStamp()); // ISO 8061
-							params.putString("custom_user_id", ui);
-							mFirebaseAnalytics.logEvent(en[0], params);
-							displayEvent(params, "Video Playing", en[0]);
+
+							progressParams.putLong("video_duration", finalVd);
+							progressParams.putLong("video_current_time", vct[0]);
+							progressParams.putString("video_percent", milestone + "%");
+							progressParams.putString("video_status", vs[0]);
+							progressParams.putString("video_provider", vp);
+							progressParams.putString("video_title", vt);
+							progressParams.putString("video_url", vu);
+							progressParams.putString("event_type", et[0]);
+							progressParams.putString("event_timestamp", String.valueOf(new Date().getTime())); // milliseconds
+							progressParams.putString("custom_timestamp", timeStamp()); // ISO 8061
+							progressParams.putString("custom_user_id", ui);
+							mFirebaseAnalytics.logEvent(en[0], progressParams);
+							displayEvent(progressParams, "Video Playing", "video_progress");
 						}
 						milestone += 5;
 						vprogress += 15;
 					}
 					if (milestone == 100) {
-						en[0] = "video_complete";
 						et[0] = etTool;
 						vs[0] = "Complete";
 						vct[0] = vprogress;
-						params.putLong("video_duration", finalVd);
-						params.putLong("video_current_time", vct[0]);
-						params.putString("video_percent", milestone + "%");
-						params.putString("video_status", vs[0]);
-						params.putString("video_provider", vp);
-						params.putString("video_title", vt);
-						params.putString("video_url", vu);
-						params.putString("event_type", et[0]);
-						params.putString("event_timestamp", String.valueOf(new Date().getTime())); // milliseconds
-						params.putString("custom_timestamp", timeStamp()); // ISO 8061
-						params.putString("custom_user_id", ui);
-						mFirebaseAnalytics.logEvent(en[0], params);
-						displayEvent(params, "Video End", en[0]);
+						progressParams.putLong("video_duration", finalVd);
+						progressParams.putLong("video_current_time", vct[0]);
+						progressParams.putString("video_percent", milestone + "%");
+						progressParams.putString("video_status", vs[0]);
+						progressParams.putString("video_provider", vp);
+						progressParams.putString("video_title", vt);
+						progressParams.putString("video_url", vu);
+						progressParams.putString("event_type", et[0]);
+						progressParams.putString("event_timestamp", String.valueOf(new Date().getTime())); // milliseconds
+						progressParams.putString("custom_timestamp", timeStamp()); // ISO 8061
+						progressParams.putString("custom_user_id", ui);
+						mFirebaseAnalytics.logEvent(en[0], progressParams);
+						displayEvent(progressParams, "Video End", "video_complete");
 						videoHandler.obtainMessage(1).sendToTarget();
 						milestone = 0;
 						vprogress = 0;
