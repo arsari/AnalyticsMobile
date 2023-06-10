@@ -45,8 +45,8 @@ This is self playground of analytic implementation on an Android Mobile App usin
 This implementation is based on JAVA programming language with the following Project Structure:
 
 - Project
-  - Android Gradle Plugin Version: 7.4.0
-  - Gradle Version: 7.5
+  - Android Gradle Plugin Version: 8.0.2
+  - Gradle Version: 8.0
 - Modules
   - Properties
     - Compile SDK Version: 33
@@ -55,6 +55,8 @@ This implementation is based on JAVA programming language with the following Pro
   - Default Config
     - Target SDK Version: 33
     - Min SDK Version: 24
+    - versionCode: 3
+    - vaersionName: 3.0
 - Built Variants
   - Minify Enabled: false
 
@@ -74,7 +76,7 @@ In Android Studio, first click the `Android` label to open the drop-down menu fo
     
       dependencies {
         // Add the dependency for the Google services Gradle plugin
-        classpath 'com.google.gms:google-services:4.3.14'
+        classpath 'com.google.gms:google-services:4.3.15'
       }
     }
     ```
@@ -95,9 +97,9 @@ In Android Studio, first click the `Android` label to open the drop-down menu fo
         ...
     
         // Firebase: Import the Firebase BoM
-        implementation platform('com.google.firebase:firebase-bom:31.2.3')
+        implementation platform('com.google.firebase:firebase-bom:32.1.0')
         // Firebase Analytics (Java)
-        implementation 'com.google.firebase:firebase-analytics:21.2.0'
+        implementation 'com.google.firebase:firebase-analytics:21.3.0'
         // TODO: Add the dependencies for Firebase products you want to use
           /**
            * When using the BoM, don't specify versions in Firebase dependencies
