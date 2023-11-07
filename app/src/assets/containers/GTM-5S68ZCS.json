@@ -1,14 +1,14 @@
 {
 
-"fingerprint":"Nw$0",
+"fingerprint":"OA$0",
 
 "resource": {
-  "version":"7",
+  "version":"8",
   
   "macros":[{"function":"__e","instance_name":"Event Name"},{"function":"__dn","instance_name":"Device Name"},{"function":"__ov","instance_name":"OS Version"},{"function":"__ai","instance_name":"App ID"},{"function":"__an","instance_name":"App Name"},{"function":"__av","instance_name":"App Version Code"},{"function":"__l","instance_name":"Language"},{"function":"__p","instance_name":"Platform"},{"function":"__sv","instance_name":"SDK Version"},{"function":"__rs","instance_name":"Screen Resolution"},{"function":"__aid","instance_name":"Advertiser ID"},{"function":"__ate","instance_name":"Advertiser Tracking Enabled"},{"function":"__avn","instance_name":"App Version Name"},{"function":"__md","instance_name":"Campaign Name","vtp_eventType":"SUGGESTED","vtp_suggestedEvent":"firebase_campaign","vtp_firebaseCampaignParam":"campaign"},{"function":"__md","instance_name":"Click ID (aclid)","vtp_eventType":"SUGGESTED","vtp_suggestedEvent":"firebase_campaign","vtp_firebaseCampaignParam":"aclid"},{"function":"__md","instance_name":"Campaign Click Timestamp","vtp_eventType":"SUGGESTED","vtp_suggestedEvent":"firebase_campaign","vtp_firebaseCampaignParam":"click_timestamp"},{"function":"__md","instance_name":"Campaign Content","vtp_eventType":"SUGGESTED","vtp_suggestedEvent":"firebase_campaign","vtp_firebaseCampaignParam":"content"},{"function":"__md","instance_name":"Campaign Custom Parameter 1","vtp_eventType":"SUGGESTED","vtp_suggestedEvent":"firebase_campaign","vtp_firebaseCampaignParam":"cp1"},{"function":"__md","instance_name":"Google Click ID (gclid)","vtp_eventType":"SUGGESTED","vtp_suggestedEvent":"firebase_campaign","vtp_firebaseCampaignParam":"gclid"},{"function":"__md","instance_name":"Campaign Source","vtp_eventType":"SUGGESTED","vtp_suggestedEvent":"firebase_campaign","vtp_firebaseCampaignParam":"source"},{"function":"__md","instance_name":"Campaign Search Term","vtp_eventType":"SUGGESTED","vtp_suggestedEvent":"firebase_campaign","vtp_firebaseCampaignParam":"term"},{"function":"__md","instance_name":"Dynamic Link Accept Time","vtp_key":"accept_time","vtp_eventType":"CUSTOM"},{"function":"__md","instance_name":"Dynamic Link ID","vtp_key":"link_id","vtp_eventType":"CUSTOM"},{"function":"__md","instance_name":"Previous Application Version","vtp_key":"_pv","vtp_eventType":"CUSTOM"},{"function":"__md","instance_name":"Previous OS Version","vtp_key":"_po","vtp_eventType":"CUSTOM"}],
   "tags":[{"function":"__fm","once_per_event":true,"vtp_mergeEventParameters":true,"vtp_editParamTable":["list",["map","editParamKey",["macro",1],"editParamValue",["macro",1]],["map","editParamKey",["macro",2],"editParamValue",["macro",2]]],"vtp_action":"measure","vtp_eventName":["macro",0],"tag_id":8}],
-  "predicates":[{"function":"_eq","arg0":["macro",0],"arg1":"generate_lead"},{"function":"_eq","arg0":["macro",0],"arg1":"login"},{"function":"_eq","arg0":["macro",0],"arg1":"logout"}],
-  "rules":[[["if",0],["add",0]],[["if",1],["add",0]],[["if",2],["add",0]]]
+  "predicates":[{"function":"_eq","arg0":["macro",0],"arg1":"generate_lead"},{"function":"_eq","arg0":["macro",0],"arg1":"login"},{"function":"_eq","arg0":["macro",0],"arg1":"logout"},{"function":"_eq","arg0":["macro",0],"arg1":"purchase"},{"function":"_ew","arg0":["macro",0],"arg1":"error"},{"function":"_sw","arg0":["macro",0],"arg1":"search"},{"function":"_sw","arg0":["macro",0],"arg1":"video"}],
+  "rules":[[["if",0],["add",0]],[["if",1],["add",0]],[["if",2],["add",0]],[["if",3],["add",0]],[["if",4],["add",0]],[["if",5],["add",0]],[["if",6],["add",0]]]
 },
 "runtime":
 [
