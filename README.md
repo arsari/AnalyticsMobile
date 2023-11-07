@@ -42,29 +42,29 @@ This is self playground of analytic implementation on an Android Mobile App usin
     <p><em>Figure 1 - AnalyticsMobile App Screenshot</em></p>
 </div>
 
-This implementation is based on JAVA programming language with the following Project Structure:
+This Android Mobile App is in JAVA programming language with the following Project Structure:
 
 - Project
-  - Android Gradle Plugin Version: 8.0.2
+  - Android Gradle Plugin Version: 8.1.2
   - Gradle Version: 8.0
 - Modules
   - Properties
-    - Compile SDK Version: 33
+    - Compile SDK Version: 34
     - Source Compatibility: $JavaVersion.VERSION_11
     - Target Compatibility: $JavaVersion.VERSION_11
   - Default Config
-    - Target SDK Version: 33
+    - Target SDK Version: 34
     - Min SDK Version: 24
-    - versionCode: 3
-    - vaersionName: 3.0
 - Built Variants
   - Minify Enabled: false
 
 ### Fundamentals: Setup Firebase SDK and Analytics SDK
 
-In Android Studio, first click the `Android` label to open the drop-down menu for the project navigator view, and choose Project to see the full root directory structure of the project. Expand the project directory and the **/app/** directory within, and drag-and-drop the `google-services.json` file, downloaded from the Firebase console, into the **/app/** directory.
+In Android Studio, first click the `Android` label to open the drop-down menu for the project navigator view, and choose `Project` to see the full root directory structure of the project. Expand the project directory and the **/app/** directory within. Drag-and-drop the `google-services.json` file, downloaded from the Firebase console, into the **/app/** directory.
 
-1. Look for `<project_name>/build.gradle` file, opened, and add the following before the plugins object, if any: 
+Now we need to modify the following files to add some dependencies:
+
+1. In the project root directory look for **build.gradle** file, opened, and add the following before the `plugins` object, if any: 
 
     ```java
     buildscript {
@@ -83,23 +83,25 @@ In Android Studio, first click the `Android` label to open the drop-down menu fo
 
     > _Note! If a newer version is available, this will be indicated by a yellow highlight around the `classpath` code._
 
-2. Look for `<project_name>/app/build.gradle` file and add the following: 
+2. In the **/app/** directory look for **build.gradle** file and add the following: 
 
     ```java
     plugins {
         ...
-    
+        
         // Firebase: Add the Google services Gradle plugin
         id 'com.google.gms.google-services'
     }
+    
+    ...
     
     dependencies {
         ...
     
         // Firebase: Import the Firebase BoM
-        implementation platform('com.google.firebase:firebase-bom:32.1.0')
+        implementation platform('com.google.firebase:firebase-bom:32.5.0')
         // Firebase Analytics (Java)
-        implementation 'com.google.firebase:firebase-analytics:21.3.0'
+        implementation 'com.google.firebase:firebase-analytics:21.5.0'
         // TODO: Add the dependencies for Firebase products you want to use
           /**
            * When using the BoM, don't specify versions in Firebase dependencies
@@ -108,24 +110,38 @@ In Android Studio, first click the `Android` label to open the drop-down menu fo
            */
     
         // GTM: Import the tag manager services
-        implementation 'com.google.android.gms:play-services-tagmanager:18.0.2'
+        implementation 'com.google.android.gms:play-services-tagmanager:18.0.4'
     }
     ```
     
     > _Note! By using the Firebase Android BoM, your app will always use compatible versions of Firebase Android libraries. If there are newer versions of the Firebase BOM, Firebase Analytics, and Google Tag Manager dependencies available, this will be indicated with a yellow highlight around the `implementation` statements._
     
-    GTM was added as a dependency in the script above but the container need to be configure. See [GTM setup](#gtm-setup) for additional steps.
+    GTM was added as a dependency in the script above but we still need to configure the container. See [GTM setup](#gtm-setup) for additional steps.
 
-3. Declare the `com.google.firebase.analytics.FirebaseAnalytics` object at the top of your activity:
+3. In your MainActivity.java file, declare the `com.google.firebase.analytics.FirebaseAnalytics` object at the top of the MainActivity class:
 
     ```java
-    private FirebaseAnalytics mFirebaseAnalytics
+    public class MainActivity extends AppCompatActivity {
+        ...
+        
+        // Declare FirebaseAnalytics
+        private FirebaseAnalytics mFirebaseAnalytics;
+        
+        ...
+    }
     ```
 
-4. Initialize it in the `onCreate()`` method:
+4. Initialize the FirebaseAnalytics in the `onCreate()` method:
 
     ```java
-    mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+    protected void onCreate() {
+        ...
+        
+        // Obtain the FirebaseAnalytics instance.
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(MainActivity.this);
+        
+        ...
+    }
     ```
 
 ### Tagging Implementation
