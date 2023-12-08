@@ -558,7 +558,7 @@ public class MainActivity extends AppCompatActivity {
 							progressParams.putString("video_title", vt);
 							progressParams.putString("video_url", vu);
 							progressParams.putString("event_type", et[0]);
-							progressParams.putString("event_timestamp", String.valueOf(new Date().getTime())); // milliseconds
+							progressParams.putString("e_timestamp", String.valueOf(new Date().getTime())); // milliseconds
 							progressParams.putString("custom_timestamp", timeStamp()); // ISO 8061
 							progressParams.putString("custom_user_id", ui);
 							mFirebaseAnalytics.logEvent(en[0], progressParams);
@@ -579,7 +579,7 @@ public class MainActivity extends AppCompatActivity {
 						progressParams.putString("video_title", vt);
 						progressParams.putString("video_url", vu);
 						progressParams.putString("event_type", et[0]);
-						progressParams.putString("event_timestamp", String.valueOf(new Date().getTime())); // milliseconds
+						progressParams.putString("e_timestamp", String.valueOf(new Date().getTime())); // milliseconds
 						progressParams.putString("custom_timestamp", timeStamp()); // ISO 8061
 						progressParams.putString("custom_user_id", ui);
 						mFirebaseAnalytics.logEvent(en[0], progressParams);
@@ -599,7 +599,7 @@ public class MainActivity extends AppCompatActivity {
 		params.putString("event_type", et[0]);
 		params.putString("button_text", desc == null ? click : desc);
 		params.putString("resource_id", resourceId);
-		params.putString("event_timestamp", String.valueOf(new Date().getTime())); // milliseconds
+		params.putString("e_timestamp", String.valueOf(new Date().getTime())); // milliseconds
 		params.putString("custom_timestamp", timeStamp()); // ISO 8061
 		params.putString("custom_user_id", ui);
 

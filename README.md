@@ -193,16 +193,16 @@ The tagging implementation for events log consider the followings user actions (
 
 The following global parameters apply to most of the above **events**:
 
-| Global Parameters              | GA4 Scope | GA4 Definitions |
-| ------------------------------ | --------- | --------------- |
-| event_type                     | Event     | Dimension       |
-| button_text                    | Event     | Dimension       |
-| resource_id                    | Event     | Dimension       |
-| event_timestamp (milliseconds) | Event     | Dimension       |
-| custom_timestamp (ISO 8601)    | Event     | Dimension       |
-| custom_user_id                 | Event     | Dimension       |
-| logged_in (user property)      | User      | Dimension       |
-| user_id (user property)        | User      | Predefined      |
+| Global Parameters           | GA4 Scope | GA4 Definitions |
+|-----------------------------|-----------|-----------------|
+| event_type                  | Event     | Dimension       |
+| button_text                 | Event     | Dimension       |
+| resource_id                 | Event     | Dimension       |
+| e_timestamp (milliseconds)  | Event     | Dimension       |
+| custom_timestamp (ISO 8601) | Event     | Dimension       |
+| custom_user_id              | Event     | Dimension       |
+| logged_in (user property)   | User      | Dimension       |
+| user_id (user property)     | User      | Predefined      |
 
 The events `dataLayer` array-object or `Bundle` is based on [Google Analytics for Firebase](https://firebase.google.com/docs/analytics) events recommendations.
 
@@ -235,7 +235,7 @@ This _screen view_ event fires automatically when the mobile app is initiated or
     params.putString("event_type", et);
     params.putString("button_text", click);
     params.putString("resource_id", resourceId);
-    params.putString("event_timestamp", new Date().getTime()); // milliseconds
+    params.putString("e_timestamp", new Date().getTime()); // milliseconds
     params.putString("custom_timestamp", timeStamp()); // ISO 8061
     params.putString("custom_user_id", ui);
     
@@ -270,7 +270,7 @@ The _general events_ are events that have simple parameters `Bundle` some of tho
     params.putString("event_type", et[0]);
     params.putString("button_text", desc == null ? click : desc);
     params.putString("resource_id", resourceId);
-    params.putString("event_timestamp", String.valueOf(new Date().getTime())); // milliseconds
+    params.putString("e_timestamp", String.valueOf(new Date().getTime())); // milliseconds
     params.putString("custom_timestamp", timeStamp()); // ISO 8061
     params.putString("custom_user_id", ui);
     
@@ -329,7 +329,7 @@ The implemented _purchase event_ `Bundle` is composed of:
     params.putString("event_type", et[0]);
     params.putString("button_text", desc == null ? click : desc);
     params.putString("resource_id", resourceId);
-    params.putString("event_timestamp", String.valueOf(new Date().getTime())); // milliseconds
+    params.putString("e_timestamp", String.valueOf(new Date().getTime())); // milliseconds
     params.putString("custom_timestamp", timeStamp()); // ISO 8061
     params.putString("custom_user_id", ui);
 
@@ -349,7 +349,7 @@ The implemented _error events_ `Bundle` is composed of:
     params.putString("event_type", et[0]);
     params.putString("button_text", desc == null ? click : desc);
     params.putString("resource_id", resourceId);
-    params.putString("event_timestamp", String.valueOf(new Date().getTime())); // milliseconds
+    params.putString("e_timestamp", String.valueOf(new Date().getTime())); // milliseconds
     params.putString("custom_timestamp", timeStamp()); // ISO 8061
     params.putString("custom_user_id", ui);
     
@@ -374,7 +374,7 @@ The implemented _video start_ and _video stop_ `Bundle` is composed of:
     params.putString("event_type", et[0]);
     params.putString("button_text", desc == null ? click : desc);
     params.putString("resource_id", resourceId);
-    params.putString("event_timestamp", String.valueOf(new Date().getTime())); // milliseconds
+    params.putString("e_timestamp", String.valueOf(new Date().getTime())); // milliseconds
     params.putString("custom_timestamp", timeStamp()); // ISO 8061
     params.putString("custom_user_id", ui);
     
@@ -399,7 +399,7 @@ However, the implemented _video progress_ and _video complete_ `Bundle` is diffe
     progressParams.putString("event_type", et[0]);
     progressParams.putString("button_text", desc == null ? click : desc);
     progressParams.putString("resource_id", resourceId);
-    progressParams.putString("event_timestamp", String.valueOf(new Date().getTime())); // milliseconds
+    progressParams.putString("e_timestamp", String.valueOf(new Date().getTime())); // milliseconds
     progressParams.putString("custom_timestamp", timeStamp()); // ISO 8061
     progressParams.putString("custom_user_id", ui);
     
