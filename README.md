@@ -25,13 +25,13 @@
 
 Google Analytics 4 (GA4) is a powerful analytics tool that enables to track user interactions and behaviors on our mobile app. Implementing GA4 on our mobile app requires a few steps:
 
-* Set up a GA4 property in the Google Analytics interface.
-* Install the Google Analytics for Firebase SDK in the mobile app.
-* Configure the app to use the Firebase SDK, including registering the app with Firebase.
-* Enable the GA4 property for our Firebase project.
-* Update our app's code to use the GA4 tracking code.
+1. Set up a GA4 property in the Google Analytics interface.
+2. Install the Google Analytics for Firebase SDK in the mobile app.
+3. Configure the app to use the Firebase SDK, including registering the app with Firebase.
+4. Enable the GA4 property for our Firebase project.
+5. Update our app's code to use the GA4 tracking code.
 
-This is self playground of analytic implementation on an Android Mobile App using Firebase SDK, GTM, and GA4 mobile data stream that allows to explore the implementation of:
+This is a playground of analytic implementation for a Android Mobile App using Firebase SDK, GTM, and GA4 mobile data stream that allows to explore the implementation of:
 
 - Setup of Firebase SDK Analytics tracking in the Android Mobile App ([Add Firebase to your Android Project](https://firebase.google.com/docs/android/setup))
 - Setup of GTM in the Android Mobile App to track different 3rd party tags
@@ -42,17 +42,22 @@ This is self playground of analytic implementation on an Android Mobile App usin
     <p><em>Figure 1 - AnalyticsMobile App Screenshot</em></p>
 </div>
 
+Before we start with the playground set up and back end, we should already have a Firebase project created and Google Analytics 4 mobile data stream. Having them created and configured will facilitate the use of the playground as a data source for the tools.
+
 This Android Mobile App is in JAVA programming language with the following Project Structure:
 
 - Project
-  - Android Gradle Plugin Version: 8.1.2
-  - Gradle Version: 8.0
+  - Android Gradle Plugin Version: 8.2.0
+  - Gradle Version: 8.2
 - Modules
   - Properties
     - Compile SDK Version: 34
     - Source Compatibility: $JavaVersion.VERSION_11
     - Target Compatibility: $JavaVersion.VERSION_11
   - Default Config
+    - Application ID: com.arsari.analyticsmobile
+    - Version Code 310240115
+    - Varsion Name: 3.10.240115
     - Target SDK Version: 34
     - Min SDK Version: 24
 - Built Variants
@@ -421,4 +426,4 @@ I initially considered the use of GTM as part of the implementation but it is no
 
 =====
 
-Copyright 2022-2023 | [Arturo Santiago-Rivera](mailto:asantiago@arsari.com) | [MIT License](LICENSE)
+Copyright 2022-2024 | [Arturo Santiago-Rivera](mailto:asantiago@arsari.com) | [MIT License](LICENSE)

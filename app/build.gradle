@@ -15,8 +15,8 @@ android {
         versionCode 3
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-      versionCode 3
-        versionName '3.8'
+      versionCode 310240115
+        versionName '3.10.240115'
     }
 
     buildTypes {
@@ -33,7 +33,7 @@ android {
 
 dependencies {
     implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.material:material:1.10.0'
+    implementation 'com.google.android.material:material:1.11.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'com.google.mlkit:common:18.10.0'
     testImplementation 'junit:junit:4.13.2'
@@ -50,7 +50,7 @@ dependencies {
     implementation 'com.caverock:androidsvg:1.4'
 
     // Firebase: Import the Firebase BoM
-    implementation platform('com.google.firebase:firebase-bom:32.5.0')
+    implementation platform('com.google.firebase:firebase-bom:32.7.0')
     // Firebase Analytics (Java)
     implementation 'com.google.firebase:firebase-analytics:21.5.0'
     // TODO: Add the dependencies for Firebase products you want to use

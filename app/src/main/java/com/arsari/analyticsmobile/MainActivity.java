@@ -265,7 +265,7 @@ public class MainActivity extends AppCompatActivity {
 		super.onResume();
 		// Screen view tracking
 		btnName = "App Init";
-		userInteraction(btnName, null,null);
+		userInteraction(btnName,null,null);
 	}
 
 	/**
@@ -278,7 +278,6 @@ public class MainActivity extends AppCompatActivity {
 		String status;
 		if (logged) {
 			status = "true";
-			ui = uuID;
 		} else {
 			status = "false";
 		}
@@ -329,7 +328,7 @@ public class MainActivity extends AppCompatActivity {
 		final String[] vs = {null}; // Video status
 		double ev = 0; // Event value
 
-		if (Boolean.FALSE.equals(logged)) ui = "guest";
+		if (Boolean.FALSE.equals(logged)) userAuthenticate(false);;
 
 		switch (click) {
 			case "Phone":
@@ -394,6 +393,7 @@ public class MainActivity extends AppCompatActivity {
 				} else {
 					en[0] = "login";
 					et[0] = etConversion;
+					ui = uuID;
 					logged = userAuthenticate(true);
 					params.putString(FirebaseAnalytics.Param.METHOD, "google");
 				}

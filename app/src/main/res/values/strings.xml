@@ -17,7 +17,7 @@
     <string name="github">Go to Github Repo</string>
     <string name="linkedin">Linkedin Profie</string>
     <string name="gtm_id">[GTM-5S68ZCS]</string>
-    <string name="display_separator">|---------------------------[dataLayer &lt;%d>]-----|\n\n</string>
+    <string name="display_separator">----------------------------[dataLayer &lt;%d>]-----\n\n</string>
     <string name="intro_desc">Introduction Paragraph</string>
     <string name="display_label">dataLayer JSON object display</string>
     <string name="video_play">Video Playing</string>
